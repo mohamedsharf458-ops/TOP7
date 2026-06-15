@@ -1,211 +1,90 @@
-import React, { useState, useEffect } from 'react';
-
-// إضافة معرف فريد لإجبار Vercel على تخطي التخزين المؤقت وإعادة البناء بالكامل
-const DEPLOYMENT_VERSION = "TOP7_V2_FULL_MENU";
+import React, { useState } from 'react';
 
 function App() {
+  const [selectedItem, setSelectedItem] = useState(null);
   const [activeCategory, setActiveCategory] = useState('hot');
-  const [searchTerm, setSearchTerm] = useState('');
 
-  useEffect(() => {
-    document.title = "TOP 7 COFFEE";
-    // إزالة أي ملفات تنسيق قديمة معلقة في المتصفح
-    const styleElements = document.querySelectorAll('style, link[rel="stylesheet"]');
-    styleElements.forEach(el => {
-      if (!el.innerText.includes('Cairo')) { el.remove(); }
-    });
-  }, []);
-
-  // المنيو المستخرج بالكامل وبدقة من صورتك الرسمية
   const menu = {
     hot: [
-      { name: 'تركية', price: '8/5', hasSizes: true },
-      { name: 'كابتشينو', price: '10/8', hasSizes: true },
-      { name: 'هوت شوكليت', price: '10/8', hasSizes: true },
-      { name: 'حليب زنجبيل', price: '5/3', hasSizes: true },
-      { name: 'كورتادو', price: '7', hasSizes: false },
-      { name: 'فلات وايت', price: '7', hasSizes: false },
-      { name: 'سحلب', price: '8', hasSizes: false },
-      { name: 'شاي كرك', price: '7/5', hasSizes: true },
-      { name: 'نسكافيه', price: '6/4', hasSizes: true },
-      { name: 'ميكاتو', price: '10/8', hasSizes: true },
-      { name: 'أسبانيش حار', price: '11/9', hasSizes: true },
-      { name: 'كرمل كابتشينو', price: '11/9', hasSizes: true },
-      { name: 'ماتشا', price: '12', hasSizes: false },
-      { name: 'توي حار', price: '10/8', hasSizes: true },
-      { name: 'موكا حار', price: '10/8', hasSizes: true },
-      { name: 'لاتيه', price: '10/8', hasSizes: true },
-      { name: 'إسبريسو', price: '8/5', hasSizes: true },
-      { name: 'قهوة إيطالي', price: '10/8', hasSizes: true },
-      { name: 'توي', price: '10/8', hasSizes: true },
-      { name: 'قهوة فرنسي', price: '10/8', hasSizes: true },
-      { name: 'قهوة اليوم حار', price: '5', hasSizes: false },
-      { name: 'قهوة أمريكية', price: '8', hasSizes: false },
-      { name: 'v60 حار', price: '8', hasSizes: false }
+      { name: 'تركية', price: '8/5' }, { name: 'كابتشينو', price: '10/8' },
+      { name: 'هوت شوكليت', price: '10/8' }, { name: 'حليب زنجبيل', price: '5/3' },
+      { name: 'كورتادو', price: '7' }, { name: 'فلات وايت', price: '7' },
+      { name: 'سحلب', price: '8' }, { name: 'شاي كرك', price: '7/5' },
+      { name: 'نسكافيه', price: '6/4' }, { name: 'ميكاتو', price: '10/8' },
+      { name: 'أسبانيش حار', price: '11/9' }, { name: 'كرمل كابتشينو', price: '11/9' },
+      { name: 'ماتشا', price: '12' }, { name: 'توي حار', price: '10/8' },
+      { name: 'موكا حار', price: '10/8' }, { name: 'لاتيه', price: '10/8' },
+      { name: 'إسبريسو', price: '8/5' }, { name: 'قهوة إيطالي', price: '10/8' },
+      { name: 'توي', price: '10/8' }, { name: 'قهوة فرنسي', price: '10/8' },
+      { name: 'قهوة اليوم حار', price: '5' }, { name: 'قهوة أمريكية', price: '8' },
+      { name: 'v60 حار', price: '8' }
     ],
     cold: [
-      { name: 'كودرد', price: '11', hasSizes: false },
-      { name: 'موهيتو', price: '8', hasSizes: false },
-      { name: 'موكا بارد', price: '12/10', hasSizes: true },
-      { name: 'أيس أمريكاني', price: '10', hasSizes: false },
-      { name: 'شوكولاته بارد', price: '12/10', hasSizes: true },
-      { name: 'ملك شيك كتكات', price: '14/12', hasSizes: true },
-      { name: 'ملك شيك مارس', price: '14/12', hasSizes: true },
-      { name: 'ملك شيك كندر', price: '14/12', hasSizes: true },
-      { name: 'ملك شيك نوتيلا', price: '14/12', hasSizes: true },
-      { name: 'ملك شيك لوتس', price: '14/12', hasSizes: true },
-      { name: 'ملك شيك OREO', price: '14/12', hasSizes: true },
-      { name: 'ملك شيك سنيكرز', price: '14/12', hasSizes: true },
-      { name: 'v60 بارد', price: '10', hasSizes: false },
-      { name: 'أيس أسبنيس لاتيه', price: '10/8', hasSizes: true },
-      { name: 'أيس لاتيه', price: '10/8', hasSizes: true },
-      { name: 'أيس كراميل لاتيه', price: '10/8', hasSizes: true },
-      { name: 'قهوة اليوم بارد', price: '5', hasSizes: false },
-      { name: 'كركديه بارد', price: '6', hasSizes: false },
-      { name: 'توي بارد', price: '12/10', hasSizes: true }
-    ],
-    tea: [
-      { name: 'شاي سادة', price: '4/2', hasSizes: true },
-      { name: 'شاي كمون', price: '5/3', hasSizes: true },
-      { name: 'شاي بابونج', price: '5/3', hasSizes: true },
-      { name: 'شاي بالحليب', price: '5/3', hasSizes: true },
-      { name: 'شاي أخضر', price: '5/3', hasSizes: true },
-      { name: 'شاي بالنعناع', price: '4/2', hasSizes: true },
-      { name: 'شاي إنجليزي', price: '5/3', hasSizes: true },
-      { name: 'شاي ينسون', price: '5/3', hasSizes: true }
+      { name: 'كودرد', price: '11' }, { name: 'موهيتو', price: '8' },
+      { name: 'موكا بارد', price: '12/10' }, { name: 'أيس أمريكاني', price: '10' },
+      { name: 'شوكولاته بارد', price: '12/10' }, { name: 'ملك شيك كتكات', price: '14/12' },
+      { name: 'ملك شيك مارس', price: '14/12' }, { name: 'ملك شيك كندر', price: '14/12' },
+      { name: 'ملك شيك نوتيلا', price: '14/12' }, { name: 'ملك شيك لوتس', price: '14/12' },
+      { name: 'ملك شيك OREO', price: '14/12' }, { name: 'ملك شيك سنيكرز', price: '14/12' },
+      { name: 'v60 بارد', price: '10' }, { name: 'أيس أسبنيس لاتيه', price: '10/8' },
+      { name: 'أيس لاتيه', price: '10/8' }, { name: 'أيس كراميل لاتيه', price: '10/8' },
+      { name: 'قهوة اليوم بارد', price: '5' }, { name: 'كركديه بارد', price: '6' },
+      { name: 'توي بارد', price: '12/10' }
     ],
     sweets: [
-      { name: 'بان كيك نوتيلا', price: '8', hasSizes: false },
-      { name: 'بان كيك مكس', price: '10', hasSizes: false },
-      { name: 'كريب نوتيلا', price: '8', hasSizes: false },
-      { name: 'كريب مكس', price: '10', hasSizes: false },
-      { name: 'كيك بارد', price: '12', hasSizes: false },
-      { name: 'كوكيز', price: '6', hasSizes: false },
-      { name: 'حلا تمر', price: '6', hasSizes: false },
-      { name: 'حلا بندق', price: '8', hasSizes: false },
-      { name: 'حلا بستاشيو', price: '8', hasSizes: false },
-      { name: 'كرمل', price: '10', hasSizes: false },
-      { name: 'بلجيكي', price: '12', hasSizes: false },
-      { name: 'حلا بارد', price: '12', hasSizes: false }
+      { name: 'بان كيك نوتيلا', price: '8' }, { name: 'بان كيك مكس', price: '10' },
+      { name: 'كريب نوتيلا', price: '8' }, { name: 'كريب مكس', price: '10' },
+      { name: 'كيك بارد', price: '12' }, { name: 'كوكيز', price: '6' },
+      { name: 'حلا تمر', price: '6' }, { name: 'حلا بندق', price: '8' },
+      { name: 'حلا بستاشيو', price: '8' }, { name: 'كرمل', price: '10' },
+      { name: 'بلجيكي', price: '12' }, { name: 'حلا بارد', price: '12' }
     ]
   };
 
-  const categories = [
-    { key: 'hot', label: 'المشروبات الساخنة', icon: '☕' },
-    { key: 'cold', label: 'المشروبات الباردة', icon: '🧊' },
-    { key: 'tea', label: 'الشاي', icon: '🍵' },
-    { key: 'sweets', label: 'الحلويات', icon: '🍰' },
-  ];
-
-  const currentItems = menu[activeCategory].filter(item =>
-    item.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  const renderPrice = (item) => {
-    if (item.hasSizes) {
-      const [medium, small] = item.price.split('/');
-      return (
-        <div style={styles.priceContainer}>
-          <div style={styles.sizeRow}><span style={styles.sizeLabel}>سمول:</span> <span style={styles.sizePrice}>{small} ر.س</span></div>
-          <div style={styles.sizeRow}><span style={styles.sizeLabel}>ميديام:</span> <span style={styles.sizePrice}>{medium} ر.س</span></div>
-        </div>
-      );
-    }
-    return <span style={styles.singlePrice}>{item.price} <small style={styles.currency}>ر.س</small></span>;
-  };
+  // تغيير الخلفية حسب القسم
+  const background = activeCategory === 'cold' 
+    ? 'https://images.unsplash.com/photo-1544145945-f2342b27bd40?q=80&w=1000' 
+    : 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1000';
 
   return (
-    <div style={styles.appWrapper} data-version={DEPLOYMENT_VERSION}>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
-        * { box-sizing: border-box !important; margin: 0 !important; padding: 0 !important; font-family: 'Cairo', sans-serif !important; }
-        body { background-color: #f8fafc !important; }
-      `}</style>
-
-      <div style={styles.menuHeader}>
-        <div style={styles.overlay}></div>
-        <div style={styles.headerContent}>
-          <div style={styles.restaurantLogo}>☕</div>
-          <h1 style={styles.headerTitle}>TOP 7 COFFEE</h1>
-          <p style={styles.headerSubtitle}>القائمة الرسمية والأسعار الدقيقة</p>
-        </div>
+    <div style={{ direction: 'rtl', fontFamily: 'Cairo', backgroundColor: '#f8fafc', minHeight: '100vh', paddingBottom: '50px' }}>
+      {/* الهيدر مع تغيير الخلفية */}
+      <div style={{ backgroundImage: `url(${background})`, backgroundSize: 'cover', backgroundPosition: 'center', padding: '60px 20px', textAlign: 'center', color: 'white', position: 'relative' }}>
+        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.6)' }}></div>
+        <h1 style={{ position: 'relative', zIndex: 1 }}>TOP 7 COFFEE</h1>
       </div>
 
-      <div style={styles.searchContainer}>
-        <div style={styles.searchBox}>
-          <input
-            type="text"
-            placeholder="ابحث عن طلبك المفضّل..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.value)}
-            style={styles.searchInput}
-          />
-          <span style={styles.searchIcon}>🔍</span>
-        </div>
-      </div>
-
-      <div style={styles.categoriesBar}>
-        {categories.map(cat => (
-          <button
-            key={cat.key}
-            onClick={() => { setActiveCategory(cat.key); setSearchTerm(''); }}
-            style={{
-              ...styles.categoryBtn,
-              ...(activeCategory === cat.key ? styles.categoryBtnActive : {})
-            }}
-          >
-            {cat.label}
+      {/* الأزرار */}
+      <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', padding: '20px' }}>
+        {['hot', 'cold', 'sweets'].map(cat => (
+          <button onClick={() => setActiveCategory(cat)} style={{ padding: '10px 20px', borderRadius: '20px', border: 'none', background: activeCategory === cat ? '#1e1b4b' : '#fff', color: activeCategory === cat ? '#fff' : '#000', cursor: 'pointer', fontWeight: 'bold' }}>
+            {cat === 'hot' ? 'ساخن' : cat === 'cold' ? 'بارد' : 'حلويات'}
           </button>
         ))}
       </div>
 
-      <div style={styles.menuContainer}>
-        {currentItems.map((item, idx) => (
-          <div key={idx} style={styles.menuItem}>
-            <div style={styles.itemTitleRow}>
-              <h3 style={styles.itemName}>{item.name}</h3>
-              {renderPrice(item)}
-            </div>
+      {/* القائمة */}
+      <div style={{ maxWidth: '400px', margin: 'auto', padding: '0 16px' }}>
+        {menu[activeCategory].map((item, index) => (
+          <div key={index} onClick={() => setSelectedItem(item)} style={{ background: '#fff', padding: '15px', marginBottom: '10px', borderRadius: '15px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}>
+            <span style={{ fontWeight: '600' }}>{item.name}</span>
+            <span style={{ color: '#b45309', fontWeight: 'bold' }}>{item.price} ر.س</span>
           </div>
         ))}
       </div>
 
-      <div style={styles.whatsappContainer}>
-        <a href="https://wa.me/966556077416" target="_blank" rel="noopener noreferrer" style={styles.whatsappBtn}>
-          💬 اطلب الآن عبر الواتساب
-        </a>
-      </div>
+      {/* النافذة المنبثقة */}
+      {selectedItem && (
+        <div onClick={() => setSelectedItem(null)} style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.7)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
+          <div onClick={e => e.stopPropagation()} style={{ background: '#fff', padding: '30px', borderRadius: '25px', textAlign: 'center', width: '80%', maxWidth: '300px' }}>
+            <h2 style={{ marginBottom: '10px' }}>{selectedItem.name}</h2>
+            <p style={{ fontSize: '26px', color: '#b45309', fontWeight: '800' }}>{selectedItem.price} ر.س</p>
+            <button onClick={() => setSelectedItem(null)} style={{ marginTop: '20px', padding: '10px 30px', borderRadius: '20px', border: 'none', background: '#1e1b4b', color: 'white', cursor: 'pointer' }}>إغلاق</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
-
-const styles = {
-  appWrapper: { direction: 'rtl', backgroundColor: '#f8fafc', minHeight: '100vh', paddingBottom: '60px', display: 'block' },
-  menuHeader: { position: 'relative', backgroundImage: "url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=1000')", backgroundSize: 'cover', backgroundPosition: 'center', textAlign: 'center', padding: '50px 20px', color: 'white', display: 'block' },
-  overlay: { position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0, 0, 0, 0.75)' },
-  headerContent: { position: 'relative', zIndex: 2 },
-  restaurantLogo: { fontSize: '32px', background: 'white', width: '70px', height: '70px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '50%', margin: '0 auto 10px auto' },
-  headerTitle: { fontSize: '28px', fontWeight: '800', color: 'white' },
-  headerSubtitle: { fontSize: '13px', color: '#e2e8f0' },
-  searchContainer: { padding: '0 16px', marginTop: '-22px', position: 'relative', zIndex: 10 },
-  searchBox: { maxWidth: '500px', margin: '0 auto', position: 'relative', background: 'white', borderRadius: '30px', boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)', display: 'flex', alignItems: 'center', border: '1px solid #e2e8f0' },
-  searchInput: { width: '100%', padding: '14px 20px 14px 50px', border: 'none', outline: 'none', fontSize: '14px', textAlign: 'right', background: 'transparent' },
-  searchIcon: { position: 'absolute', left: '20px', color: '#94a3b8' },
-  categoriesBar: { display: 'flex', gap: '8px', padding: '20px 16px 10px 16px', maxWidth: '500px', margin: '0 auto', overflowX: 'auto' },
-  categoryBtn: { padding: '10px 16px', border: '1px solid #e2e8f0', backgroundColor: 'white', borderRadius: '25px', fontSize: '13px', fontWeight: '700', color: '#475569', cursor: 'pointer', whiteSpace: 'nowrap' },
-  categoryBtnActive: { backgroundColor: '#1e1b4b', color: 'white', borderColor: '#1e1b4b' },
-  menuContainer: { maxWidth: '500px', margin: '10px auto 90px auto', padding: '0 16px', display: 'flex', flexDirection: 'column', gap: '10px' },
-  menuItem: { backgroundColor: '#ffffff', padding: '16px', borderRadius: '14px', border: '1px solid #f1f5f9', boxShadow: '0 2px 4px rgba(0,0,0,0.02)' },
-  itemTitleRow: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' },
-  itemName: { fontSize: '15px', fontWeight: '700', color: '#111827' },
-  singlePrice: { fontWeight: '800', color: '#b45309', fontSize: '16px' },
-  currency: { fontSize: '11px', color: '#6b7280' },
-  priceContainer: { display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '2px' },
-  sizeRow: { display: 'flex', gap: '4px', fontSize: '12px' },
-  sizeLabel: { color: '#6b7280' },
-  sizePrice: { fontWeight: '700', color: '#b45309' },
-  whatsappContainer: { position: 'fixed', bottom: '20px', left: '0', right: '0', zIndex: 1000, display: 'flex', justifyContent: 'center', padding: '0 20px' },
-  whatsappBtn: { width: '100%', maxWidth: '468px', backgroundColor: '#25D366', color: 'white', textAlign: 'center', padding: '13px', borderRadius: '30px', fontWeight: '700', fontSize: '15px', textDecoration: 'none', display: 'block' }
-};
 
 export default App;
