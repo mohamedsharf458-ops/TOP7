@@ -4,104 +4,249 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TOP 7 COFFEE - القائمة الإلكترونية</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
-        body { background-color: #f8fafc; color: #2d2d2d; padding-bottom: 100px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background-color: #f8fafc; color: #2d2d2d; direction: rtl; }
         
-        .menu-header { position: relative; background-size: cover; background-position: center; text-align: center; padding: 60px 20px; color: white; transition: background-image 0.5s ease; }
-        .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1; }
+        .menu-header { position: relative; background-size: cover; background-position: center; text-align: center; padding: 65px 20px; color: white; transition: background-image 0.6s ease-in-out; }
+        .menu-header .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.68); z-index: 1; }
         .header-content { position: relative; z-index: 2; }
         
-        .categories-bar { display: flex; gap: 10px; padding: 20px; overflow-x: auto; justify-content: center; }
-        .category-btn { padding: 10px 20px; border: none; border-radius: 20px; background: white; cursor: pointer; font-weight: 700; transition: 0.3s; }
-        .category-btn.active { background: #1e1b4b; color: white; }
+        .restaurant-logo { font-size: 36px; background: white; width: 76px; height: 76px; display: flex; align-items: center; justify-content: center; border-radius: 50%; margin: 0 auto 12px auto; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.3s ease; }
+        .header-content h1 { font-size: 30px; font-weight: 800; letter-spacing: 0.5px; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+        .header-content p { font-size: 13.5px; color: #f1f5f9; margin-top: 4px; font-weight: 600; }
         
-        .menu-container { max-width: 500px; margin: auto; padding: 0 16px; }
-        .menu-item { background: white; padding: 15px; margin-bottom: 12px; border-radius: 18px; display: flex; align-items: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-        .item-img { width: 60px; height: 60px; border-radius: 12px; margin-left: 15px; object-fit: cover; }
-
-        /* ستايل المودال (النافذة المنبثقة) */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 9999; align-items: center; justify-content: center; }
-        .modal-content { background: white; width: 85%; max-width: 350px; padding: 30px; border-radius: 25px; text-align: center; position: relative; }
-        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 25px; cursor: pointer; }
+        .search-box-container { padding: 0 16px; margin-top: -24px; position: relative; z-index: 10; }
+        .search-box { max-width: 500px; margin: 0 auto; position: relative; background: white; border-radius: 30px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06); border: 1px solid #e2e8f0; display: flex; align-items: center; }
+        .search-box input { width: 100%; padding: 15px 20px 15px 50px; border: none; outline: none; font-size: 14.5px; text-align: right; background: transparent; }
+        .search-icon { position: absolute; left: 22px; color: #94a3b8; font-size: 16px; }
+        
+        .categories-bar { display: flex; gap: 8px; padding: 25px 16px 15px 16px; max-width: 500px; margin: 0 auto; overflow-x: auto; white-space: nowrap; }
+        .categories-bar::-webkit-scrollbar { height: 0px; }
+        .category-btn { padding: 11px 18px; border: 1px solid #e2e8f0; background-color: white; border-radius: 25px; font-size: 13.5px; font-weight: 700; color: #475569; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.25s ease; }
+        .category-btn.active { background-color: #1e1b4b; color: white; border-color: #1e1b4b; box-shadow: 0 6px 15px rgba(30, 27, 75, 0.3); }
+        
+        .menu-container { max-width: 500px; margin: 5px auto 100px auto; padding: 0 16px; display: flex; flex-direction: column; gap: 12px; }
+        .menu-item { background-color: #ffffff; padding: 12px; border-radius: 18px; border: 1px solid #f1f5f9; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.015); display: flex; justify-content: space-between; align-items: center; gap: 12px; transition: transform 0.2s ease; }
+        .menu-item:active { transform: scale(0.98); }
+        .item-info { display: flex; align-items: center; gap: 14px; }
+        
+        .item-thumbnail { width: 64px; height: 64px; border-radius: 14px; object-fit: cover; background-color: #f1f5f9; border: 1px solid #edf2f7; flex-shrink: 0; }
+        .item-name { font-size: 15.5px; font-weight: 700; color: #0f172a; }
+        
+        .single-price { font-weight: 800; color: #b45309; font-size: 16.5px; white-space: nowrap; }
+        .currency { font-size: 11px; font-weight: 600; color: #64748b; }
+        .price-container { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
+        .size-row { display: flex; gap: 4px; align-items: center; font-size: 12px; white-space: nowrap; }
+        .size-label { color: #64748b; font-weight: 600; background: #f1f5f9; padding: 1px 6px; border-radius: 6px; font-size: 10.5px; }
+        .size-price { font-weight: 800; color: #b45309; min-width: 40px; text-align: left; }
+        
+        .whatsapp-container { position: fixed; bottom: 22px; left: 0; right: 0; z-index: 1000; display: flex; justify-content: center; padding: 0 20px; }
+        .whatsapp-btn { width: 100%; max-width: 468px; background-color: #25D366; color: white; text-align: center; padding: 14px; border-radius: 30px; font-weight: 700; font-size: 15.5px; text-decoration: none; display: block; box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4); }
     </style>
 </head>
 <body>
 
-    <header class="menu-header" id="menuHeader" style="background-image: url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1000');">
-        <div class="overlay"></div>
-        <div class="header-content">
-            <h1 id="headerTitle">TOP 7 COFFEE</h1>
-            <p id="headerSub">المشروبات الساخنة الفاخرة</p>
+    <div id="root">
+        <header class="menu-header" id="menuHeader" style="background-image: url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1000');">
+            <div class="overlay"></div>
+            <div class="header-content">
+                <div class="restaurant-logo" id="restaurantLogo">☕</div>
+                <h1>TOP 7 COFFEE</h1>
+                <p id="headerSubtitle">المشروبات الساخنة الفاخرة</p>
+            </div>
+        </header>
+
+        <div class="search-box-container">
+            <div class="search-box">
+                <input type="text" id="searchInput" oninput="searchMenu()" placeholder="ابحث عن طلبك المفضّل...">
+                <span class="search-icon">🔍</span>
+            </div>
         </div>
-    </header>
 
-    <div class="categories-bar">
-        <button class="category-btn active" onclick="render('hot', this)">ساخن</button>
-        <button class="category-btn" onclick="render('cold', this)">بارد</button>
-        <button class="category-btn" onclick="render('sweets', this)">حلويات</button>
-    </div>
+        <div class="categories-bar">
+            <button class="category-btn active" onclick="switchCategory('hot', this)"><span>☕</span> المشروبات الساخنة</button>
+            <button class="category-btn" onclick="switchCategory('cold', this)"><span>🧊</span> المشروبات الباردة</button>
+            <button class="category-btn" onclick="switchCategory('tea', this)"><span>🍵</span> الشاي</button>
+            <button class="category-btn" onclick="switchCategory('sweets', this)"><span>🍰</span> الحلويات</button>
+        </div>
 
-    <main class="menu-container" id="container"></main>
+        <main class="menu-container" id="menuItemsContainer">
+            </main>
 
-    <div id="modal" class="modal" onclick="closeModal()">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
-            <img id="modalImg" src="" style="width:100px; height:100px; border-radius:20px; margin-bottom:15px;">
-            <h2 id="modalName"></h2>
-            <p style="font-size:22px; color:#b45309; font-weight:800; margin-top:10px;">السعر: <span id="modalPrice"></span> ر.س</p>
+        <div class="whatsapp-container">
+            <a href="https://wa.me/966556077416" target="_blank" rel="noopener noreferrer" class="whatsapp-btn">
+                💬 اطلب الآن عبر الواتساب (0556077416)
+            </a>
         </div>
     </div>
 
     <script>
-        const data = {
+        const categoryDetails = {
+            hot: {
+                logo: '☕',
+                subtitle: 'أجود محاصيل القهوة والمشروبات الساخنة',
+                bg: 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1000'
+            },
+            cold: {
+                logo: '🧊',
+                subtitle: 'مشروبات باردة ومنعشة تروي عطشك',
+                bg: 'https://images.unsplash.com/photo-1551782450-17144efb9c50?q=80&w=1000'
+            },
+            tea: {
+                logo: '🍵',
+                subtitle: 'تشكيلة مميزة من الشاي والأعشاب الدافئة',
+                bg: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?q=80&w=1000'
+            },
+            sweets: {
+                logo: '🍰',
+                subtitle: 'حلويات طازجة ولذيذة تكمل روقانك',
+                bg: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=1000'
+            }
+        };
+
+        const menu = {
             hot: [
-                {name: 'كابتشينو', price: '10', img: 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?q=80&w=200'},
-                {name: 'تركية', price: '8', img: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=200'}
+                { name: 'تركية', price: '8/5', hasSizes: true, img: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=120' },
+                { name: 'كابتشينو', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?q=80&w=120' },
+                { name: 'هوت شوكليت', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?q=80&w=120' },
+                { name: 'حليب زنجبيل', price: '5/3', hasSizes: true, img: 'https://images.unsplash.com/photo-1621263764928-df1444c5e859?q=80&w=120' },
+                { name: 'كورتادو', price: '7', hasSizes: false, img: 'https://images.unsplash.com/photo-1534778101976-62847782c213?q=80&w=120' },
+                { name: 'فلات وايت', price: '7', hasSizes: false, img: 'https://images.unsplash.com/photo-1577968897966-3d4325b36b61?q=80&w=120' },
+                { name: 'سحلب', price: '8', hasSizes: false, img: 'https://images.unsplash.com/photo-1542729779-11d8fe8e25f6?q=80&w=120' },
+                { name: 'شاي كرك', price: '7/5', hasSizes: true, img: 'https://images.unsplash.com/photo-1563822249548-9a72b6353cd1?q=80&w=120' },
+                { name: 'نسكافيه', price: '6/4', hasSizes: true, img: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?q=80&w=120' },
+                { name: 'ميكاتو', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1594911774802-8822a707999d?q=80&w=120' },
+                { name: 'أسبانيش حار', price: '11/9', hasSizes: true, img: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=120' },
+                { name: 'كرمل كابتشينو', price: '11/9', hasSizes: true, img: 'https://images.unsplash.com/photo-1517256064527-09c53b2d0c6b?q=80&w=120' },
+                { name: 'ماتشا', price: '12', hasSizes: false, img: 'https://images.unsplash.com/photo-1536256263959-770b48d82b0a?q=80&w=120' },
+                { name: 'توي حار', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1606791405792-1004f1718d0c?q=80&w=120' },
+                { name: 'موكا حار', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1553909489-cd47e0907980?q=80&w=120' },
+                { name: 'لاتيه', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=120' },
+                { name: 'إسبريسو', price: '8/5', hasSizes: true, img: 'https://images.unsplash.com/photo-1510591509382-7434f3133a15?q=80&w=120' },
+                { name: 'قهوة إيطالي', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1552332386-f8dd00dc2f85?q=80&w=120' },
+                { name: 'توي', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1606791405792-1004f1718d0c?q=80&w=120' },
+                { name: 'قهوة فرنسي', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=120' },
+                { name: 'قهوة اليوم حار', price: '5', hasSizes: false, img: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=120' },
+                { name: 'قهوة أمريكية', price: '8', hasSizes: false, img: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=120' },
+                { name: 'v60 حار', price: '8', hasSizes: false, img: 'https://images.unsplash.com/photo-1545665225-b23b99e4d45e?q=80&w=120' }
             ],
             cold: [
-                {name: 'كودرد', price: '11', img: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?q=80&w=200'},
-                {name: 'موهيتو', price: '8', img: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=200'}
+                { name: 'كودرد', price: '11', hasSizes: false, img: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?q=80&w=120' }, // تحديث: رابط مباشر ومضمون لعلبة الصودا الحمراء
+                { name: 'موهيتو', price: '8', hasSizes: false, img: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=120' },
+                { name: 'موكا بارد', price: '12/10', hasSizes: true, img: 'https://images.unsplash.com/photo-1530373239216-42518e6b4063?q=80&w=120' },
+                { name: 'أيس أمريكاني', price: '10', hasSizes: false, img: 'https://images.unsplash.com/photo-1551046713-b45fdb3a224a?q=80&w=120' },
+                { name: 'شوكولاته بارد', price: '12/10', hasSizes: true, img: 'https://images.unsplash.com/photo-1541658016709-82535e94bc69?q=80&w=120' },
+                { name: 'ملك شيك كتكات', price: '14/12', hasSizes: true, img: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?q=80&w=120' },
+                { name: 'ملك شيك مارس', price: '14/12', hasSizes: true, img: 'https://images.unsplash.com/photo-1579954115545-a95591f28bfc?q=80&w=120' },
+                { name: 'ملك شيك كندر', price: '14/12', hasSizes: true, img: 'https://images.unsplash.com/photo-1541783245831-57d6fb0926d3?q=80&w=120' },
+                { name: 'ملك شيك نوتيلا', price: '14/12', hasSizes: true, img: 'https://images.unsplash.com/photo-1600718374662-0483d2b9da44?q=80&w=120' },
+                { name: 'ملك شيك لوتس', price: '14/12', hasSizes: true, img: 'https://images.unsplash.com/photo-1585502753372-e42bc5db9447?q=80&w=120' },
+                { name: 'ملك شيك OREO', price: '14/12', hasSizes: true, img: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?q=80&w=120' },
+                { name: 'ملك شيك سنيكرز', price: '14/12', hasSizes: true, img: 'https://images.unsplash.com/photo-1592321675774-3de57f3ee311?q=80&w=120' },
+                { name: 'v60 بارد', price: '10', hasSizes: false, img: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=120' },
+                { name: 'أيس أسبنيس لاتيه', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?q=80&w=120' },
+                { name: 'أيس لاتيه', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?q=80&w=120' },
+                { name: 'أيس كراميل لاتيه', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1461023058043-033481443bd9?q=80&w=120' },
+                { name: 'قهوة اليوم بارد', price: '5', hasSizes: false, img: 'https://images.unsplash.com/photo-1497515114629-f71d768fd07c?q=80&w=120' },
+                { name: 'كركديه بارد', price: '6', hasSizes: false, img: 'https://images.unsplash.com/photo-1595981267035-7b04ca84a82d?q=80&w=120' },
+                { name: 'توي بارد', price: '12/10', hasSizes: true, img: 'https://images.unsplash.com/photo-1530373239216-42518e6b4063?q=80&w=120' }
+            ],
+            tea: [
+                { name: 'شاي سادة', price: '4/2', hasSizes: true, img: 'https://images.unsplash.com/photo-1597481499750-3e6b22637e12?q=80&w=120' },
+                { name: 'شاي كمون', price: '5/3', hasSizes: true, img: 'https://images.unsplash.com/photo-1627435601361-ec25f5b1d0e5?q=80&w=120' },
+                { name: 'شاي بابونج', price: '5/3', hasSizes: true, img: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?q=80&w=120' },
+                { name: 'شاي بالحليب', price: '5/3', hasSizes: true, img: 'https://images.unsplash.com/photo-1563822249548-9a72b6353cd1?q=80&w=120' },
+                { name: 'شاي أخضر', price: '5/3', hasSizes: true, img: 'https://images.unsplash.com/photo-1523906630133-f6934a1ab26e?q=80&w=120' },
+                { name: 'شاي بالنعناع', price: '4/2', hasSizes: true, img: 'https://images.unsplash.com/photo-1546812808-92e959665765?q=80&w=120' },
+                { name: 'شاي إنجليزي', price: '5/3', hasSizes: true, img: 'https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?q=80&w=120' },
+                { name: 'شاي ينسون', price: '5/3', hasSizes: true, img: 'https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?q=80&w=120' }
             ],
             sweets: [
-                {name: 'حلا البندق', price: '8', img: 'https://images.unsplash.com/photo-1511018556340-d16986a1c194?q=80&w=200'},
-                {name: 'حلا بستاشيو', price: '8', img: 'https://images.unsplash.com/photo-1532371493798-3af5163c6efd?q=80&w=200'}
+                { name: 'بان كيك نوتيلا', price: '8', hasSizes: false, img: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?q=80&w=120' },
+                { name: 'بان كيك مكس', price: '10', hasSizes: false, img: 'https://images.unsplash.com/photo-1528207776546-365bb710ee93?q=80&w=120' },
+                { name: 'كريب نوتيلا', price: '8', hasSizes: false, img: 'https://images.unsplash.com/photo-1519676867240-f03562e64548?q=80&w=120' },
+                { name: 'كريب مكس', price: '10', hasSizes: false, img: 'https://images.unsplash.com/photo-1621303837174-89787a7d4729?q=80&w=120' },
+                { name: 'كيك بارد', price: '12', hasSizes: false, img: 'https://images.unsplash.com/photo-1535141192574-5d4897c13636?q=80&w=120' },
+                { name: 'كوكيز', price: '6', hasSizes: false, img: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?q=80&w=120' },
+                { name: 'حلا تمر', price: '6', hasSizes: false, img: 'https://images.unsplash.com/photo-1541783245831-57d6fb0926d3?q=80&w=120' },
+                { name: 'حلا بندق', price: '8', hasSizes: false, img: 'https://images.unsplash.com/photo-1511018556340-d16986a1c194?q=80&w=120' }, // تحديث: صورة حلا بندق وشوكولاتة واضحة ومستقرة
+                { name: 'حلا بستاشيو', price: '8', hasSizes: false, img: 'https://images.unsplash.com/photo-1532371493798-3af5163c6efd?q=80&w=120' }, // تحديث: صورة حلا الفستق الأخضر الفخم
+                { name: 'كرمل', price: '10', hasSizes: false, img: 'https://images.unsplash.com/photo-1587314168485-3236d6710814?q=80&w=120' },
+                { name: 'بلجيكي', price: '12', hasSizes: false, img: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=120' },
+                { name: 'حلا بارد', price: '12', hasSizes: false, img: 'https://images.unsplash.com/photo-1511018556340-d16986a1c194?q=80&w=120' }
             ]
         };
 
-        function render(cat, btn) {
-            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            
-            const cont = document.getElementById('container');
-            cont.innerHTML = '';
-            
-            // تغيير خلفية الهيدر بناءً على القسم
-            const header = document.getElementById('menuHeader');
-            if(cat === 'cold') header.style.backgroundImage = "url('https://images.unsplash.com/photo-1544145945-f2342b27bd40?q=80&w=1000')";
-            else header.style.backgroundImage = "url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1000')";
+        let currentCategory = 'hot';
 
-            data[cat].forEach(item => {
-                const div = document.createElement('div');
-                div.className = 'menu-item';
-                div.onclick = () => openModal(item);
-                div.innerHTML = `<img src="${item.img}" class="item-img"> <div><h3>${item.name}</h3><p>${item.price} ر.س</p></div>`;
-                cont.appendChild(div);
+        function renderMenu(filterText = '') {
+            const container = document.getElementById('menuItemsContainer');
+            container.innerHTML = '';
+            
+            const details = categoryDetails[currentCategory];
+            document.getElementById('restaurantLogo').innerText = details.logo;
+            document.getElementById('headerSubtitle').innerText = details.subtitle;
+            document.getElementById('menuHeader').style.backgroundImage = `url('${details.bg}')`;
+
+            const items = menu[currentCategory].filter(item => 
+                item.name.includes(filterText)
+            );
+
+            if(items.length === 0) {
+                container.innerHTML = '<div style="text-align:center; padding: 40px; color:#64748b; font-weight:600;">لا توجد أصناف تطابق بحثك حالياً ☕</div>';
+                return;
+            }
+
+            items.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'menu-item';
+                
+                let priceHTML = '';
+                if (item.hasSizes) {
+                    const prices = item.price.split('/');
+                    priceHTML = `
+                        <div class="price-container">
+                            <div class="size-row"><span class="size-label">وسط</span><span class="size-price">${prices[1]} ر.س</span></div>
+                            <div class="size-row"><span class="size-label">كبير</span><span class="size-price">${prices[0]} ر.س</span></div>
+                        </div>
+                    `;
+                } else {
+                    priceHTML = `<span class="single-price">${item.price} <small class="currency">ر.س</small></span>`;
+                }
+
+                itemDiv.innerHTML = `
+                    <div class="item-info">
+                        <img src="${item.img}" alt="${item.name}" class="item-thumbnail" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=120'">
+                        <h3 class="item-name">${item.name}</h3>
+                    </div>
+                    ${priceHTML}
+                `;
+                container.appendChild(itemDiv);
             });
         }
 
-        function openModal(item) {
-            document.getElementById('modalName').innerText = item.name;
-            document.getElementById('modalPrice').innerText = item.price;
-            document.getElementById('modalImg').src = item.img;
-            document.getElementById('modal').style.display = 'flex';
+        function switchCategory(category, element) {
+            currentCategory = category;
+            document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+            document.getElementById('searchInput').value = '';
+            renderMenu();
+            
+            const logoEl = document.getElementById('restaurantLogo');
+            logoEl.style.transform = 'scale(1.18) rotate(6deg)';
+            setTimeout(() => { logoEl.style.transform = 'scale(1) rotate(0deg)'; }, 250);
         }
 
-        function closeModal() { document.getElementById('modal').style.display = 'none'; }
-        
-        // تشغيل افتراضي
-        render('hot', document.querySelector('.category-btn'));
+        function searchMenu() {
+            const text = document.getElementById('searchInput').value.trim();
+            renderMenu(text);
+        }
+
+        renderMenu();
     </script>
 </body>
 </html>
