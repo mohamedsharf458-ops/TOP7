@@ -1,0 +1,252 @@
+/* ==========================================
+   1. إعدادات عامة وتصفير الهوامش (Reset)
+   ========================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Cairo', sans-serif; /* خط عربي احترافي ومريح للعين */
+    -webkit-tap-highlight-color: transparent; /* إلغاء الوميض الأزرق عند الضغط في الهواتف */
+}
+
+body {
+    background-color: #f8fafc;
+    color: #2d2d2d;
+    direction: rtl; /* دعم الكتابة من اليمين لليسار */
+    line-height: 1.6;
+}
+
+/* ==========================================
+   2. الهيدر والغلاف العلوي (Header & Banner)
+   ========================================== */
+.menu-header {
+    position: relative;
+    background-image: url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=1000'); /* خلفية كافيه احترافية */
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    padding: 60px 20px;
+    color: white;
+}
+
+/* طبقة تظليل داكنة فوق الصورة لتوضيح النصوص البيضاء */
+.menu-header .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); 
+    z-index: 1;
+}
+
+.header-content {
+    position: relative;
+    z-index: 2;
+}
+
+.restaurant-logo {
+    font-size: 45px;
+    background: white;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin: 0 auto 15px auto;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.header-content h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    letter-spacing: 0.5px;
+}
+
+.header-content p {
+    font-size: 14px;
+    opacity: 0.85;
+    font-weight: 300;
+}
+
+/* ==========================================
+   3. شريط التصنيفات المرن (Categories Bar)
+   ========================================== */
+.categories-bar {
+    display: flex;
+    gap: 12px;
+    padding: 15px 20px;
+    background: #ffffff;
+    position: sticky; /* يلتصق في أعلى الشاشة عند التمرير */
+    top: 0;
+    z-index: 100;
+    overflow-x: auto; /* يسمح بالسحب الأفقي على الموبايل */
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    scroll-behavior: smooth;
+}
+
+/* إخفاء شريط التمرير الافتراضي المزعج بصرياً */
+.categories-bar::-webkit-scrollbar {
+    height: 0px;
+}
+
+.category-btn {
+    background: #f1f5f9;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #4b5563;
+    cursor: pointer;
+    transition: all 0.25s ease-in-out;
+}
+
+/* تأثير التمرير وحالة الزر النشط */
+.category-btn.active, .category-btn:hover {
+    background: #1e1b4b; /* لون كحلي داكن وفخم */
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(30, 27, 75, 0.2);
+}
+
+/* ==========================================
+   4. حاوية العناصر والوجبات (Menu Items)
+   ========================================== */
+.menu-container {
+    max-width: 550px; /* عرض مثالي متناسق جداً للموبايل */
+    margin: 25px auto;
+    padding: 0 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* مسافة ثابتة ومريحة بين البطاقات */
+}
+
+/* تصميم بطاقة العنصر الواحد */
+.menu-item {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 14px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03); /* ظل ناعم وحديث */
+    gap: 16px; /* مسافة دقيقة بين الصورة والنصوص */
+    direction: rtl;
+    border: 1px solid #f1f5f9;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* تأثير حركة خفيف عند اللمس والتمرير */
+.menu-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+}
+
+/* تنسيق الصورة وحجمها وضمان عدم تمددها */
+.menu-item .item-image-wrapper, 
+.menu-item .item-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px; /* زوايا منحنية متناسقة مع البطاقة */
+    overflow: hidden;
+    flex-shrink: 0; /* يمنع صغر حجم الصورة عند زيادة النصوص */
+    background-color: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* تحسين مظهر الصور الحقيقية داخل البطاقة */
+.menu-item .item-real-img,
+.menu-item .item-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* لقص الصورة بشكل ذكي ومثالي بدون تمطيط بصري */
+}
+
+/* حاوية النصوص الداخلية لتأخذ المساحة المتبقية سلاسة */
+.menu-item .item-details,
+.menu-item .item-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* السطر العلوي (الاسم والسعر) */
+.menu-item .item-title-row {
+    display: flex;
+    justify-content: space-between; /* دفع اسم الطبق لليمين والسعر للييسار */
+    align-items: center;
+}
+
+.menu-item h3, 
+.menu-item .item-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.menu-item .price, 
+.menu-item .item-price {
+    font-weight: 700;
+    color: #b45309; /* لون بني دافئ فخم يناسب الكافيهات والمطاعم */
+    font-size: 16px;
+    white-space: nowrap;
+}
+
+/* وصف الوجبة */
+.menu-item .description, 
+.menu-item .item-description {
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.5;
+}
+
+/* ==========================================
+   5. تذييل الصفحة (Footer)
+   ========================================== */
+.menu-footer {
+    text-align: center;
+    padding: 40px 20px;
+    background: #ffffff;
+    margin-top: 50px;
+    font-size: 14px;
+    color: #6b7280;
+    border-top: 1px solid #f1f5f9;
+}
+
+.social-icons {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.social-icons a {
+    text-decoration: none;
+    color: #1e1b4b;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.social-icons a:hover {
+    color: #b45309;
+}
+
+/* ==========================================
+   6. شاشات الكمبيوتر والأجهزة اللوحية الكبيرة
+   ========================================== */
+@media (min-width: 768px) {
+    .menu-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* ترتيب البطاقات في صفين بجانب بعض تلقائياً */
+        max-width: 950px;
+        gap: 20px;
+    }
+    .categories-bar {
+        justify-content: center; /* توسيط شريط الأقسام بدلاً من السحب */
+    }
+}
