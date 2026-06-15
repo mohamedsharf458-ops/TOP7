@@ -1,10 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function App() {
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
 
-  // قائمة المنتجات الخاصة بـ Tune7 Café
+  // كود ذكي لإلغاء وتصفير أي ملفات CSS قديمة معلقة في المشروع أو المتصفح
+  useEffect(() => {
+    const styleElements = document.querySelectorAll('style, link[rel="stylesheet"]');
+    styleElements.forEach(el => {
+      if (!el.innerText.includes('Cairo')) {
+        el.remove();
+      }
+    });
+  }, []);
+
+  // قائمة منتجات كافيه Tune7
   const menuItems = [
     { name: 'سبانيش لاتيه', price: '18', category: 'hot', desc: 'إسبريسو غني مع الحليب المكثف المحلى والحليب الطازج المبخر.', icon: '☕' },
     { name: 'موهيتو بلو بري', price: '15', category: 'cold', desc: 'مزيج منعش من التوت الأزرق، النعناع الطازج، الليمون والصودا.', icon: '🧊' },
@@ -21,7 +31,6 @@ function App() {
     { key: 'sweets', label: 'الحلويات', icon: '🍰' },
   ];
 
-  // تصفية المنتجات بناءً على القسم المختار وبحث المستخدم
   const filteredItems = menuItems.filter(item => {
     const matchesCategory = activeCategory === 'all' || item.category === activeCategory;
     const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase());
@@ -30,15 +39,14 @@ function App() {
 
   return (
     <div style={styles.appWrapper}>
-      {/* إعدادات خط القاهرة العام وتصفير الهوامش التلقائية للمتصفحات */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background-color: #f8fafc; }
-        .category-scrollbar::-webkit-scrollbar { height: 0px; }
+        * { box-sizing: border-box !important; margin: 0 !important; padding: 0 !important; font-family: 'Cairo', sans-serif !important; -webkit-tap-highlight-color: transparent !important; }
+        body { background-color: #f8fafc !important; }
+        .category-scrollbar::-webkit-scrollbar { height: 0px !important; }
       `}</style>
 
-      {/* الهيدر وغلاف كافيه Tune7 */}
+      {/* الهيدر والغلاف العلوي */}
       <div style={styles.menuHeader}>
         <div style={styles.overlay}></div>
         <div style={styles.headerContent}>
@@ -48,7 +56,7 @@ function App() {
         </div>
       </div>
 
-      {/* شريط البحث المطور */}
+      {/* صندوق البحث */}
       <div style={styles.searchContainer}>
         <div style={styles.searchBox}>
           <input
@@ -62,7 +70,7 @@ function App() {
         </div>
       </div>
 
-      {/* شريط الأقسام الدائري السلس والمرن */}
+      {/* شريط الأقسام */}
       <div className="category-scrollbar" style={styles.categoriesBar}>
         {categories.map(cat => (
           <button
@@ -78,7 +86,7 @@ function App() {
         ))}
       </div>
 
-      {/* حاوية بطاقات المنيو الأنيقة بالتوزيع الحديث */}
+      {/* عناصر القائمة */}
       <div style={styles.menuContainer}>
         {filteredItems.length > 0 ? (
           filteredItems.map((item, idx) => (
@@ -100,7 +108,7 @@ function App() {
         )}
       </div>
 
-      {/* زر طلب الواتساب الثابت بالأسفل */}
+      {/* زر الواتساب */}
       <div style={styles.whatsappContainer}>
         <a href="https://wa.me/966556077416" target="_blank" rel="noopener noreferrer" style={styles.whatsappBtn}>
           💬 اطلب الآن عبر الواتساب
@@ -110,220 +118,35 @@ function App() {
   );
 }
 
-// كائنات التنسيق القوية المدمجة لإصلاح مشاكل الأبعاد الظاهرة في صورة المنيو المكسور
+// التنسيقات الإجبارية القوية جداً لمنع أي تداخل
 const styles = {
-  appWrapper: {
-    direction: 'rtl',
-    backgroundColor: '#f8fafc',
-    minHeight: '100vh',
-    color: '#2d2d2d',
-    paddingBottom: '40px',
-  },
-  menuHeader: {
-    position: 'relative',
-    backgroundImage: "url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1000')",
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    textAlign: 'center',
-    padding: '60px 20px',
-    color: 'white',
-  },
-  overlay: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    background: 'rgba(0, 0, 0, 0.65)',
-    zIndex: 1,
-  },
-  headerContent: {
-    position: 'relative',
-    zIndex: 2,
-  },
-  restaurantLogo: {
-    fontSize: '36px',
-    background: 'white',
-    width: '75px',
-    height: '75px',
-    display: 'flex',
-    alignItems: 'center',
-    justify-content: 'center',
-    borderRadius: '50%',
-    margin: '0 auto 12px auto',
-    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-  },
-  headerTitle: {
-    fontSize: '28px',
-    fontWeight: '800',
-    marginBottom: '4px',
-  },
-  headerSubtitle: {
-    fontSize: '13.5px',
-    opacity: 0.9,
-    fontWeight: '300',
-  },
-  searchContainer: {
-    padding: '0 16px',
-    marginTop: '-22px',
-    position: 'relative',
-    zIndex: 10,
-  },
-  searchBox: {
-    maxWidth: '500px',
-    margin: '0 auto',
-    position: 'relative',
-    background: 'white',
-    borderRadius: '30px',
-    boxShadow: '0 4px 15px rgba(0, 0, 0, 0.08)',
-    border: '1px solid #e2e8f0',
-    overflow: 'hidden',
-  },
-  searchInput: {
-    width: '100%',
-    padding: '14px 20px 14px 50px',
-    border: 'none',
-    outline: 'none',
-    fontSize: '14px',
-    direction: 'rtl',
-    textAlign: 'right',
-  },
-  searchIcon: {
-    position: 'absolute',
-    left: '20px',
-    top: '50%',
-    transform: 'translateY(-50%)',
-    fontSize: '16px',
-    color: '#94a3b8',
-  },
-  categoriesBar: {
-    display: 'flex',
-    justify-content: 'center',
-    gap: '10px',
-    padding: '25px 16px 15px 16px',
-    maxWidth: '500px',
-    margin: '0 auto',
-    overflowX: 'auto',
-    whiteSpace: 'nowrap',
-  },
-  categoryBtn: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '6px',
-    padding: '10px 18px',
-    border: '1px solid #e2e8f0',
-    backgroundColor: 'white',
-    borderRadius: '25px',
-    fontSize: '13.5px',
-    fontWeight: '700',
-    color: '#475569',
-    cursor: 'pointer',
-    whiteSpace: 'nowrap',
-    boxShadow: '0 2px 4px rgba(0,0,0,0.02)',
-    transition: 'all 0.2s ease',
-  },
-  categoryBtnActive: {
-    backgroundColor: '#1e1b4b',
-    color: 'white',
-    borderColor: '#1e1b4b',
-    boxShadow: '0 4px 12px rgba(30, 27, 75, 0.25)',
-  },
-  catIcon: {
-    fontSize: '15px',
-  },
-  menuContainer: {
-    maxWidth: '500px',
-    margin: '5px auto 90px auto',
-    padding: '0 16px',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '14px',
-  },
-  menuItem: {
-    display: 'flex',
-    alignItems: 'center',
-    backgroundColor: '#ffffff',
-    padding: '14px',
-    borderRadius: '16px',
-    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.02)',
-    gap: '14px',
-    border: '1px solid #f1f5f9',
-  },
-  itemImageBox: {
-    width: '55px',
-    height: '55px',
-    backgroundColor: '#f8fafc',
-    borderRadius: '12px',
-    display: 'flex',
-    alignItems: 'center',
-    justify-content: 'center',
-    fontSize: '24px',
-    flexShrink: 0,
-    border: '1px solid #e2e8f0',
-  },
-  itemDetails: {
-    flexGrow: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '4px',
-  },
-  itemTitleRow: {
-    display: 'flex',
-    justify-content: 'space-between',
-    alignItems: 'center',
-  },
-  itemName: {
-    fontSize: '15px',
-    fontWeight: '700',
-    color: '#111827',
-  },
-  price: {
-    fontWeight: '800',
-    color: '#b45309',
-    fontSize: '15px',
-    whiteSpace: 'nowrap',
-  },
-  currency: {
-    fontSize: '10px',
-    fontWeight: '600',
-    color: '#6b7280',
-  },
-  description: {
-    fontSize: '12px',
-    color: '#6b7280',
-    lineHeight: '1.5',
-    textAlign: 'right',
-  },
-  noResults: {
-    textAlign: 'center',
-    padding: '40px',
-    color: '#6b7280',
-    fontSize: '14px',
-    fontWeight: '600',
-  },
-  whatsappContainer: {
-    position: 'fixed',
-    bottom: '20px',
-    left: '0',
-    right: '0',
-    zIndex: 1000,
-    display: 'flex',
-    justify-content: 'center',
-    padding: '0 20px',
-  },
-  whatsappBtn: {
-    width: '100%',
-    maxWidth: '468px',
-    backgroundColor: '#25D366',
-    color: 'white',
-    textAlign: 'center',
-    padding: '13px',
-    borderRadius: '30px',
-    fontWeight: '700',
-    fontSize: '15px',
-    textDecoration: 'none',
-    boxShadow: '0 6px 20px rgba(37, 211, 102, 0.35)',
-  },
+  appWrapper: { direction: 'rtl', backgroundColor: '#f8fafc', minHeight: '100vh', color: '#2d2d2d', paddingBottom: '40px', display: 'block' },
+  menuHeader: { position: 'relative', backgroundImage: "url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1000')", backgroundSize: 'cover', backgroundPosition: 'center', textAlign: 'center', padding: '60px 20px', color: 'white', display: 'block' },
+  overlay: { position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0, 0, 0, 0.65)', zIndex: 1 },
+  headerContent: { position: 'relative', zIndex: 2, display: 'block' },
+  restaurantLogo: { fontSize: '36px', background: 'white', width: '75px', height: '75px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '50%', margin: '0 auto 12px auto', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)' },
+  headerTitle: { fontSize: '28px', fontWeight: '800', marginBottom: '4px', color: 'white' },
+  headerSubtitle: { fontSize: '13.5px', opacity: 0.9, fontWeight: '300', color: 'white' },
+  searchContainer: { padding: '0 16px', marginTop: '-22px', position: 'relative', zIndex: 10, display: 'block' },
+  searchBox: { maxWidth: '500px', margin: '0 auto', position: 'relative', background: 'white', borderRadius: '30px', boxShadow: '0 4px 15px rgba(0, 0, 0, 0.08)', border: '1px solid #e2e8f0', overflow: 'hidden', display: 'flex', alignItems: 'center' },
+  searchInput: { width: '100%', padding: '14px 20px 14px 50px', border: 'none', outline: 'none', fontSize: '14px', direction: 'rtl', textAlign: 'right', background: 'transparent' },
+  searchIcon: { position: 'absolute', left: '20px', top: '50%', transform: 'translateY(-50%)', fontSize: '16px', color: '#94a3b8' },
+  categoriesBar: { display: 'flex', justifyContent: 'center', gap: '10px', padding: '25px 16px 15px 16px', maxWidth: '500px', margin: '0 auto', overflowX: 'auto', whiteSpace: 'nowrap' },
+  categoryBtn: { display: 'flex', alignItems: 'center', gap: '6px', padding: '10px 18px', border: '1px solid #e2e8f0', backgroundColor: 'white', borderRadius: '25px', fontSize: '13.5px', fontWeight: '700', color: '#475569', cursor: 'pointer', whiteSpace: 'nowrap', boxShadow: '0 2px 4px rgba(0,0,0,0.02)' },
+  categoryBtnActive: { backgroundColor: '#1e1b4b', color: 'white', borderColor: '#1e1b4b', boxShadow: '0 4px 12px rgba(30, 27, 75, 0.25)' },
+  catIcon: { fontSize: '15px' },
+  menuContainer: { maxWidth: '500px', margin: '5px auto 90px auto', padding: '0 16px', display: 'flex', flexDirection: 'column', gap: '14px' },
+  menuItem: { display: 'flex', alignItems: 'center', backgroundColor: '#ffffff', padding: '14px', borderRadius: '16px', boxShadow: '0 4px 10px rgba(0, 0, 0, 0.02)', gap: '14px', border: '1px solid #f1f5f9' },
+  itemImageBox: { width: '55px', height: '55px', backgroundColor: '#f8fafc', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px', flexShrink: 0, border: '1px solid #e2e8f0' },
+  itemDetails: { flexGrow: 1, display: 'flex', flexDirection: 'column', gap: '4px' },
+  itemTitleRow: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' },
+  itemName: { fontSize: '15px', fontWeight: '700', color: '#111827' },
+  price: { fontWeight: '800', color: '#b45309', fontSize: '15px', whiteSpace: 'nowrap' },
+  currency: { fontSize: '10px', fontWeight: '600', color: '#6b7280' },
+  description: { fontSize: '12px', color: '#6b7280', lineHeight: '1.5', textAlign: 'right' },
+  noResults: { textAlign: 'center', padding: '40px', color: '#6b7280', fontSize: '14px', fontWeight: '600' },
+  whatsappContainer: { position: 'fixed', bottom: '20px', left: '0', right: '0', zIndex: 1000, display: 'flex', justifyContent: 'center', padding: '0 20px' },
+  whatsappBtn: { width: '100%', maxWidth: '468px', backgroundColor: '#25D366', color: 'white', textAlign: 'center', padding: '13px', borderRadius: '30px', fontWeight: '700', fontSize: '15px', textDecoration: 'none', boxShadow: '0 6px 20px rgba(37, 211, 102, 0.35)', display: 'block' },
 };
 
 export default App;
