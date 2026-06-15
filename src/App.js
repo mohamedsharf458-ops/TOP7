@@ -4,7 +4,7 @@ function App() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [activeCategory, setActiveCategory] = useState('hot');
 
-  // المنيو الكامل المستخرج من صورك
+  // البيانات كاملة كما في المنيو الخاص بك
   const menu = {
     hot: [
       { name: 'تركية', price: '8/5' }, { name: 'كابتشينو', price: '10/8' },
@@ -42,24 +42,25 @@ function App() {
     ]
   };
 
-  // تغيير الخلفية ديناميكياً: صورة مشروب مثلج للبارد، وقهوة لغيره
-  const headerBg = activeCategory === 'cold' 
-    ? 'https://images.unsplash.com/photo-1544145945-f2342b27bd40?q=80&w=1000' 
-    : 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1000';
+  // تغيير الخلفية: صورة مشروب منعش للبارد، وقهوة للساخن والحلويات
+  const getBackground = () => {
+    if (activeCategory === 'cold') return 'https://images.unsplash.com/photo-1544145945-f2342b27bd40?q=80&w=1000';
+    return 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1000';
+  };
 
   return (
-    <div style={{ direction: 'rtl', fontFamily: 'Cairo', backgroundColor: '#f8fafc', minHeight: '100vh', paddingBottom: '50px' }}>
-      {/* هيدر المنيو بخلفية متغيرة */}
-      <div style={{ backgroundImage: `url(${headerBg})`, backgroundSize: 'cover', backgroundPosition: 'center', padding: '60px 20px', textAlign: 'center', color: 'white', position: 'relative', transition: '0.5s' }}>
-        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.6)' }}></div>
-        <h1 style={{ position: 'relative', zIndex: 1 }}>TOP 7 COFFEE</h1>
+    <div style={{ direction: 'rtl', fontFamily: 'Cairo, sans-serif', backgroundColor: '#f8fafc', minHeight: '100vh', paddingBottom: '50px' }}>
+      {/* هيدر البانر الجديد (لا يوجد فيه برجر!) */}
+      <div style={{ backgroundImage: `url(${getBackground()})`, backgroundSize: 'cover', backgroundPosition: 'center', padding: '80px 20px', textAlign: 'center', color: 'white', position: 'relative', transition: '0.5s' }}>
+        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.5)' }}></div>
+        <h1 style={{ position: 'relative', zIndex: 1, fontSize: '2.5rem' }}>TOP 7 COFFEE</h1>
       </div>
 
-      {/* أزرار التصنيفات */}
+      {/* أزرار التنقل */}
       <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', padding: '20px' }}>
         {['hot', 'cold', 'sweets'].map(cat => (
-          <button key={cat} onClick={() => setActiveCategory(cat)} style={{ padding: '10px 20px', borderRadius: '20px', border: 'none', background: activeCategory === cat ? '#1e1b4b' : '#fff', color: activeCategory === cat ? '#fff' : '#000', cursor: 'pointer', fontWeight: 'bold' }}>
-            {cat === 'hot' ? 'ساخن' : cat === 'cold' ? 'بارد' : 'حلويات'}
+          <button key={cat} onClick={() => setActiveCategory(cat)} style={{ padding: '12px 25px', borderRadius: '25px', border: 'none', background: activeCategory === cat ? '#1e1b4b' : '#fff', color: activeCategory === cat ? '#fff' : '#000', cursor: 'pointer', fontWeight: 'bold', boxShadow: '0 2px 5px rgba(0,0,0,0.1)' }}>
+            {cat === 'hot' ? 'المشروبات الساخنة' : cat === 'cold' ? 'المشروبات الباردة' : 'الحلويات'}
           </button>
         ))}
       </div>
@@ -67,20 +68,20 @@ function App() {
       {/* قائمة المنتجات */}
       <div style={{ maxWidth: '400px', margin: 'auto', padding: '0 16px' }}>
         {menu[activeCategory].map((item, index) => (
-          <div key={index} onClick={() => setSelectedItem(item)} style={{ background: '#fff', padding: '15px', marginBottom: '10px', borderRadius: '15px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}>
-            <span style={{ fontWeight: '600' }}>{item.name}</span>
-            <span style={{ color: '#b45309', fontWeight: 'bold' }}>{item.price} ر.س</span>
+          <div key={index} onClick={() => setSelectedItem(item)} style={{ background: '#fff', padding: '18px', marginBottom: '12px', borderRadius: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', boxShadow: '0 2px 8px rgba(0,0,0,0.08)' }}>
+            <span style={{ fontWeight: '700', fontSize: '1.1rem' }}>{item.name}</span>
+            <span style={{ color: '#b45309', fontWeight: '800', fontSize: '1.1rem' }}>{item.price} ر.س</span>
           </div>
         ))}
       </div>
 
-      {/* نافذة التفاصيل (Popup) */}
+      {/* النافذة المنبثقة (Popup) */}
       {selectedItem && (
-        <div onClick={() => setSelectedItem(null)} style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.7)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
-          <div onClick={e => e.stopPropagation()} style={{ background: '#fff', padding: '30px', borderRadius: '25px', textAlign: 'center', width: '80%', maxWidth: '300px' }}>
-            <h2 style={{ marginBottom: '10px' }}>{selectedItem.name}</h2>
-            <p style={{ fontSize: '26px', color: '#b45309', fontWeight: '800' }}>{selectedItem.price} ر.س</p>
-            <button onClick={() => setSelectedItem(null)} style={{ marginTop: '20px', padding: '10px 30px', borderRadius: '20px', border: 'none', background: '#1e1b4b', color: 'white', cursor: 'pointer' }}>إغلاق</button>
+        <div onClick={() => setSelectedItem(null)} style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
+          <div onClick={e => e.stopPropagation()} style={{ background: '#fff', padding: '40px', borderRadius: '30px', textAlign: 'center', width: '85%', maxWidth: '350px' }}>
+            <h2 style={{ marginBottom: '15px' }}>{selectedItem.name}</h2>
+            <p style={{ fontSize: '30px', color: '#b45309', fontWeight: '900' }}>{selectedItem.price} ر.س</p>
+            <button onClick={() => setSelectedItem(null)} style={{ marginTop: '30px', padding: '12px 40px', borderRadius: '25px', border: 'none', background: '#1e1b4b', color: 'white', cursor: 'pointer', fontSize: '1rem' }}>إغلاق</button>
           </div>
         </div>
       )}
