@@ -8,49 +8,61 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* التنسيقات مدمجة هنا لضمان التطبيق الفوري وتخطي أي كاش قديم */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; }
         body { background-color: #f8fafc; color: #2d2d2d; direction: rtl; }
-        .menu-header { position: relative; background-image: url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=1000'); background-size: cover; background-position: center; text-align: center; padding: 50px 20px; color: white; }
-        .menu-header .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.75); z-index: 1; }
+        
+        /* تأثير الانتقال السلس للخلفية عند تغيير السكشن */
+        .menu-header { position: relative; background-size: cover; background-position: center; text-align: center; padding: 60px 20px; color: white; transition: background-image 0.5s ease-in-out; }
+        .menu-header .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); z-index: 1; }
         .header-content { position: relative; z-index: 2; }
-        .restaurant-logo { font-size: 32px; background: white; width: 70px; height: 70px; display: flex; align-items: center; justify-content: center; border-radius: 50%; margin: 0 auto 10px auto; }
-        .header-content h1 { font-size: 28px; font-weight: 800; }
-        .header-content p { font-size: 13px; color: #e2e8f0; }
+        
+        /* اللوجو الديناميكي الدائري */
+        .restaurant-logo { font-size: 35px; background: white; width: 75px; height: 75px; display: flex; align-items: center; justify-content: center; border-radius: 50%; margin: 0 auto 12px auto; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: transform 0.3s ease; }
+        .header-content h1 { font-size: 28px; font-weight: 800; letter-spacing: 1px; }
+        .header-content p { font-size: 13px; color: #e2e8f0; margin-top: 4px; }
+        
         .search-box-container { padding: 0 16px; margin-top: -22px; position: relative; z-index: 10; }
-        .search-box { max-width: 500px; margin: 0 auto; position: relative; background: white; border-radius: 30px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); border: 1px solid #e2e8f0; display: flex; align-items: center; }
+        .search-box { max-width: 500px; margin: 0 auto; position: relative; background: white; border-radius: 30px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); border: 1px solid #e2e8f0; display: flex; align-items: center; }
         .search-box input { width: 100%; padding: 14px 20px 14px 50px; border: none; outline: none; font-size: 14px; text-align: right; background: transparent; }
-        .search-icon { position: absolute; left: 20px; color: '#94a3b8'; }
-        .categories-bar { display: flex; gap: 8px; padding: 20px 16px 10px 16px; maxWidth: 500px; margin: 0 auto; overflow-x: auto; justify-content: center; }
-        .category-btn { padding: 10px 16px; border: 1px solid #e2e8f0; backgroundColor: white; borderRadius: 25px; fontSize: 13px; fontWeight: 700; color: #475569; cursor: pointer; whiteSpace: nowrap; transition: all 0.2s; }
-        .category-btn.active { background-color: #1e1b4b; color: white; border-color: #1e1b4b; }
-        .menu-container { max-width: 500px; margin: 10px auto 90px auto; padding: 0 16px; display: flex; flex-direction: column; gap: 10px; }
-        .menu-item { background-color: #ffffff; padding: 16px; border-radius: 14px; border: 1px solid #f1f5f9; box-shadow: 0 2px 4px rgba(0,0,0,0.02); display: flex; justify-content: space-between; align-items: center; }
+        .search-icon { position: absolute; left: 20px; color: #94a3b8; font-size: 16px; }
+        
+        /* شريط الأقسام السريع */
+        .categories-bar { display: flex; gap: 8px; padding: 25px 16px 15px 16px; max-width: 500px; margin: 0 auto; overflow-x: auto; white-space: nowrap; }
+        .categories-bar::-webkit-scrollbar { height: 0px; }
+        .category-btn { padding: 10px 18px; border: 1px solid #e2e8f0; background-color: white; border-radius: 25px; font-size: 13.5px; font-weight: 700; color: #475569; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); transition: all 0.2s ease; }
+        .category-btn.active { background-color: #1e1b4b; color: white; border-color: #1e1b4b; box-shadow: 0 4px 12px rgba(30, 27, 75, 0.25); }
+        
+        /* حاوية المنيو وبطاقات الأصناف */
+        .menu-container { max-width: 500px; margin: 5px auto 90px auto; padding: 0 16px; display: flex; flex-direction: column; gap: 12px; }
+        .menu-item { background-color: #ffffff; padding: 14px; border-radius: 16px; border: 1px solid #f1f5f9; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.01); display: flex; justify-content: space-between; align-items: center; gap: 14px; }
+        .item-info { display: flex; align-items: center; gap: 12px; }
+        .item-icon-box { width: 50px; height: 50px; background-color: #f8fafc; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; border: 1px solid #e2e8f0; flex-shrink: 0; }
         .item-name { font-size: 15px; font-weight: 700; color: #111827; }
-        .single-price { font-weight: 800; color: #b45309; font-size: 16px; }
-        .currency { font-size: 11px; color: #6b7280; }
+        
+        /* الأسعار */
+        .single-price { font-weight: 800; color: #b45309; font-size: 16px; white-space: nowrap; }
+        .currency { font-size: 11px; font-weight: 600; color: #6b7280; }
         .price-container { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
-        .size-row { display: flex; gap: 4px; font-size: 12px; }
-        .size-label { color: #6b7280; }
+        .size-row { display: flex; gap: 4px; align-items: center; font-size: 12px; white-space: nowrap; }
+        .size-label { color: #6b7280; font-weight: 400; }
         .size-price { font-weight: 700; color: #b45309; }
+        
         .whatsapp-container { position: fixed; bottom: 20px; left: 0; right: 0; z-index: 1000; display: flex; justify-content: center; padding: 0 20px; }
-        .whatsapp-btn { width: 100%; max-width: 468px; background-color: #25D366; color: white; text-align: center; padding: 13px; border-radius: 30px; font-weight: 700; font-size: 15px; text-decoration: none; display: block; box-shadow: 0 4px 12px rgba(37,211,102,0.3); }
+        .whatsapp-btn { width: 100%; max-width: 468px; background-color: #25D366; color: white; text-align: center; padding: 13px; border-radius: 30px; font-weight: 700; font-size: 15px; text-decoration: none; display: block; box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35); }
     </style>
 </head>
 <body>
 
     <div id="root">
-        <!-- الهيدر -->
-        <header class="menu-header">
+        <header class="menu-header" id="menuHeader" style="background-image: url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=1000');">
             <div class="overlay"></div>
             <div class="header-content">
-                <div class="restaurant-logo">☕</div>
+                <div class="restaurant-logo" id="restaurantLogo">☕</div>
                 <h1>TOP 7 COFFEE</h1>
-                <p>القائمة الرسمية والأسعار الدقيقة</p>
+                <p id="headerSubtitle">المشروبات الساخنة الفاخرة</p>
             </div>
         </header>
 
-        <!-- صندوق البحث -->
         <div class="search-box-container">
             <div class="search-box">
                 <input type="text" id="searchInput" oninput="searchMenu()" placeholder="ابحث عن طلبك المفضّل...">
@@ -58,29 +70,48 @@
             </div>
         </div>
 
-        <!-- شريط التصنيفات -->
         <div class="categories-bar">
-            <button class="category-btn active" onclick="switchCategory('hot', this)">المشروبات الساخنة</button>
-            <button class="category-btn" onclick="switchCategory('cold', this)">المشروبات الباردة</button>
-            <button class="category-btn" onclick="switchCategory('tea', this)">الشاي</button>
-            <button class="category-btn" onclick="switchCategory('sweets', this)">الحلويات</button>
+            <button class="category-btn active" onclick="switchCategory('hot', this)"><span>☕</span> المشروبات الساخنة</button>
+            <button class="category-btn" onclick="switchCategory('cold', this)"><span>🧊</span> المشروبات الباردة</button>
+            <button class="category-btn" onclick="switchCategory('tea', this)"><span>🍵</span> الشاي</button>
+            <button class="category-btn" onclick="switchCategory('sweets', this)"><span>🍰</span> الحلويات</button>
         </div>
 
-        <!-- قائمة العناصر -->
         <main class="menu-container" id="menuItemsContainer">
-            <!-- سيتم توليد العناصر هنا تلقائياً بواسطة الجافاسكريبت بالأسفل -->
-        </main>
+            </main>
 
-        <!-- زر الواتساب -->
         <div class="whatsapp-container">
             <a href="https://wa.me/966556077416" target="_blank" rel="noopener noreferrer" class="whatsapp-btn">
-                💬 اطلب الآن عبر الواتساب
+                💬 اطلب الآن عبر الواتساب (0556077416)
             </a>
         </div>
     </div>
 
     <script>
-        // داتا المنيو الكاملة لـ TOP 7 COFFEE
+        // داتا الصور الديناميكية للغلاف، اللوجو، والنصوص التوضيحية لكل قسم
+        const categoryDetails = {
+            hot: {
+                logo: '☕',
+                subtitle: 'المشروبات الساخنة الفاخرة والمعدة بكل حب',
+                bg: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=1000' // صورة قهوة حارة برغوة غنية
+            },
+            cold: {
+                logo: '🧊',
+                subtitle: 'المشروبات الباردة المنعشة لجميع الأوقات',
+                bg: 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?q=80&w=1000' // صورة ميلك شيك ومشروب بارد يسرسح
+            },
+            tea: {
+                logo: '🍵',
+                subtitle: 'أجود أنواع الشاي والأعشاب الساخنة العريقة',
+                bg: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?q=80&w=1000' // صورة إبريق شاي دافئ ومريح
+            },
+            sweets: {
+                logo: '🍰',
+                subtitle: 'الحلويات الطازجة والبان كيك والكريب اللذيذ',
+                bg: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?q=80&w=1000' // صورة كريب وبان كيك مغطى بالنوتيلا
+            }
+        };
+
         const menu = {
             hot: [
                 { name: 'تركية', price: '8/5', hasSizes: true },
@@ -160,12 +191,18 @@
             const container = document.getElementById('menuItemsContainer');
             container.innerHTML = '';
             
+            // تحديث تفاصيل الهيدر واللوجو الديناميكي بناءً على القسم النشط الحالي
+            const details = categoryDetails[currentCategory];
+            document.getElementById('restaurantLogo').innerText = details.logo;
+            document.getElementById('headerSubtitle').innerText = details.subtitle;
+            document.getElementById('menuHeader').style.backgroundImage = `url('${details.bg}')`;
+
             const items = menu[currentCategory].filter(item => 
-                item.name.includes(filterText)
+                item.name.toLowerCase().includes(filterText.toLowerCase())
             );
 
             if(items.length === 0) {
-                container.innerHTML = '<div style="text-align:center; padding: 30px; color:#6b7280;">لا توجد نتائج للبحث ☕</div>';
+                container.innerHTML = '<div class="no-results" style="text-align:center; padding: 40px; color:#6b7280; font-weight:600;">لا توجد أصناف تطابق بحثك حالياً ☕</div>';
                 return;
             }
 
@@ -187,7 +224,10 @@
                 }
 
                 itemDiv.innerHTML = `
-                    <h3 class="item-name">${item.name}</h3>
+                    <div class="item-info">
+                        <div class="item-icon-box">${details.logo}</div>
+                        <h3 class="item-name">${item.name}</h3>
+                    </div>
                     ${priceHTML}
                 `;
                 container.appendChild(itemDiv);
@@ -200,6 +240,11 @@
             element.classList.add('active');
             document.getElementById('searchInput').value = '';
             renderMenu();
+            
+            // تأثير حركة خفيفة ممتعة للوجو عند تبديل السكشن
+            const logoEl = document.getElementById('restaurantLogo');
+            logoEl.style.transform = 'scale(1.15) rotate(5deg)';
+            setTimeout(() => { logoEl.style.transform = 'scale(1) rotate(0deg)'; }, 250);
         }
 
         function searchMenu() {
@@ -207,7 +252,7 @@
             renderMenu(text);
         }
 
-        // تشغيل المنيو أول مرة عند فتح الصفحة
+        // تشغيل البناء الأولي للمنيو
         renderMenu();
     </script>
 </body>
