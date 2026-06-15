@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from 'react';
 
+// إضافة معرف فريد لإجبار Vercel على تخطي التخزين المؤقت وإعادة البناء بالكامل
+const DEPLOYMENT_VERSION = "TOP7_V2_FULL_MENU";
+
 function App() {
   const [activeCategory, setActiveCategory] = useState('hot');
   const [searchTerm, setSearchTerm] = useState('');
 
-  // كود إجباري لتنظيف المتصفح وتغيير اسم الصفحة فوق في التبويب
   useEffect(() => {
     document.title = "TOP 7 COFFEE";
+    // إزالة أي ملفات تنسيق قديمة معلقة في المتصفح
     const styleElements = document.querySelectorAll('style, link[rel="stylesheet"]');
     styleElements.forEach(el => {
       if (!el.innerText.includes('Cairo')) { el.remove(); }
     });
   }, []);
 
-  // المنيو المستخرج بالكامل وبدقة من الصورة 19964cad-b49a-4ddc-8ff7-e91b6cec7364.jpg
+  // المنيو المستخرج بالكامل وبدقة من صورتك الرسمية
   const menu = {
     hot: [
       { name: 'تركية', price: '8/5', hasSizes: true },
@@ -112,14 +115,13 @@ function App() {
   };
 
   return (
-    <div style={styles.appWrapper}>
+    <div style={styles.appWrapper} data-version={DEPLOYMENT_VERSION}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
         * { box-sizing: border-box !important; margin: 0 !important; padding: 0 !important; font-family: 'Cairo', sans-serif !important; }
         body { background-color: #f8fafc !important; }
       `}</style>
 
-      {/* الهيدر المعدل إجبارياً */}
       <div style={styles.menuHeader}>
         <div style={styles.overlay}></div>
         <div style={styles.headerContent}>
@@ -129,21 +131,19 @@ function App() {
         </div>
       </div>
 
-      {/* صندوق البحث */}
       <div style={styles.searchContainer}>
         <div style={styles.searchBox}>
           <input
             type="text"
-            placeholder="ابحث عن طلبك..."
+            placeholder="ابحث عن طلبك المفضّل..."
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) => setSearchTerm(e.value)}
             style={styles.searchInput}
           />
           <span style={styles.searchIcon}>🔍</span>
         </div>
       </div>
 
-      {/* الأقسام */}
       <div style={styles.categoriesBar}>
         {categories.map(cat => (
           <button
@@ -159,7 +159,6 @@ function App() {
         ))}
       </div>
 
-      {/* الأصناف */}
       <div style={styles.menuContainer}>
         {currentItems.map((item, idx) => (
           <div key={idx} style={styles.menuItem}>
@@ -171,7 +170,6 @@ function App() {
         ))}
       </div>
 
-      {/* الواتساب */}
       <div style={styles.whatsappContainer}>
         <a href="https://wa.me/966556077416" target="_blank" rel="noopener noreferrer" style={styles.whatsappBtn}>
           💬 اطلب الآن عبر الواتساب
@@ -182,8 +180,8 @@ function App() {
 }
 
 const styles = {
-  appWrapper: { direction: 'rtl', backgroundColor: '#f8fafc', minHeight: '100vh', paddingBottom: '60px' },
-  menuHeader: { position: 'relative', backgroundImage: "url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=1000')", backgroundSize: 'cover', backgroundPosition: 'center', textAlign: 'center', padding: '50px 20px', color: 'white' },
+  appWrapper: { direction: 'rtl', backgroundColor: '#f8fafc', minHeight: '100vh', paddingBottom: '60px', display: 'block' },
+  menuHeader: { position: 'relative', backgroundImage: "url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=1000')", backgroundSize: 'cover', backgroundPosition: 'center', textAlign: 'center', padding: '50px 20px', color: 'white', display: 'block' },
   overlay: { position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0, 0, 0, 0.75)' },
   headerContent: { position: 'relative', zIndex: 2 },
   restaurantLogo: { fontSize: '32px', background: 'white', width: '70px', height: '70px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '50%', margin: '0 auto 10px auto' },
@@ -191,7 +189,7 @@ const styles = {
   headerSubtitle: { fontSize: '13px', color: '#e2e8f0' },
   searchContainer: { padding: '0 16px', marginTop: '-22px', position: 'relative', zIndex: 10 },
   searchBox: { maxWidth: '500px', margin: '0 auto', position: 'relative', background: 'white', borderRadius: '30px', boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)', display: 'flex', alignItems: 'center', border: '1px solid #e2e8f0' },
-  searchInput: { width: '100%', padding: '14px 20px 14px 50px', border: 'none', outline: 'none', fontSize: '14px', textAlign: 'right' },
+  searchInput: { width: '100%', padding: '14px 20px 14px 50px', border: 'none', outline: 'none', fontSize: '14px', textAlign: 'right', background: 'transparent' },
   searchIcon: { position: 'absolute', left: '20px', color: '#94a3b8' },
   categoriesBar: { display: 'flex', gap: '8px', padding: '20px 16px 10px 16px', maxWidth: '500px', margin: '0 auto', overflowX: 'auto' },
   categoryBtn: { padding: '10px 16px', border: '1px solid #e2e8f0', backgroundColor: 'white', borderRadius: '25px', fontSize: '13px', fontWeight: '700', color: '#475569', cursor: 'pointer', whiteSpace: 'nowrap' },
