@@ -3,34 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TOP 7 COFFEE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&display=swap" rel="stylesheet">
+    <title>TOP 7 COFFEE - القائمة الإلكترونية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* (نفس تنسيقاتك السابقة) */
-        body { font-family: 'Cairo', sans-serif; background: #f8fafc; margin: 0; padding-bottom: 80px; }
-        .menu-item { background: white; padding: 15px; margin: 10px; border-radius: 20px; display: flex; align-items: center; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .item-thumbnail { width: 60px; height: 60px; border-radius: 15px; margin-left: 15px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
+        body { background-color: #f8fafc; color: #2d2d2d; padding-bottom: 100px; }
+        
+        .menu-header { position: relative; background-size: cover; background-position: center; text-align: center; padding: 60px 20px; color: white; transition: background-image 0.5s ease; }
+        .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1; }
+        .header-content { position: relative; z-index: 2; }
+        
+        .categories-bar { display: flex; gap: 10px; padding: 20px; overflow-x: auto; justify-content: center; }
+        .category-btn { padding: 10px 20px; border: none; border-radius: 20px; background: white; cursor: pointer; font-weight: 700; transition: 0.3s; }
+        .category-btn.active { background: #1e1b4b; color: white; }
+        
+        .menu-container { max-width: 500px; margin: auto; padding: 0 16px; }
+        .menu-item { background: white; padding: 15px; margin-bottom: 12px; border-radius: 18px; display: flex; align-items: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .item-img { width: 60px; height: 60px; border-radius: 12px; margin-left: 15px; object-fit: cover; }
 
-        /* تنسيق النافذة المنبثقة (Popup) */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; align-items: center; justify-content: center; }
-        .modal-content { background: white; width: 90%; max-width: 400px; padding: 25px; border-radius: 25px; text-align: center; position: relative; }
-        .modal-content img { width: 120px; height: 120px; border-radius: 20px; margin-bottom: 15px; }
-        .close-btn { position: absolute; top: 10px; right: 15px; font-size: 24px; cursor: pointer; }
+        /* ستايل المودال (النافذة المنبثقة) */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 9999; align-items: center; justify-content: center; }
+        .modal-content { background: white; width: 85%; max-width: 350px; padding: 30px; border-radius: 25px; text-align: center; position: relative; }
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 25px; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <main id="menuItemsContainer"></main>
+    <header class="menu-header" id="menuHeader" style="background-image: url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1000');">
+        <div class="overlay"></div>
+        <div class="header-content">
+            <h1 id="headerTitle">TOP 7 COFFEE</h1>
+            <p id="headerSub">المشروبات الساخنة الفاخرة</p>
+        </div>
+    </header>
 
-    <div id="itemModal" class="modal" onclick="closeModal()">
+    <div class="categories-bar">
+        <button class="category-btn active" onclick="render('hot', this)">ساخن</button>
+        <button class="category-btn" onclick="render('cold', this)">بارد</button>
+        <button class="category-btn" onclick="render('sweets', this)">حلويات</button>
+    </div>
+
+    <main class="menu-container" id="container"></main>
+
+    <div id="modal" class="modal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <span class="close-btn" onclick="closeModal()">&times;</span>
-            <img id="modalImg" src="" alt="صورة">
+            <img id="modalImg" src="" style="width:100px; height:100px; border-radius:20px; margin-bottom:15px;">
             <h2 id="modalName"></h2>
-            <p style="font-size: 20px; color: #b45309; font-weight: 800;">السعر: <span id="modalPrice"></span> ر.س</p>
+            <p style="font-size:22px; color:#b45309; font-weight:800; margin-top:10px;">السعر: <span id="modalPrice"></span> ر.س</p>
         </div>
     </div>
 
     <script>
-        // دالة عرض النافذة
-        function openModal(name, price,
+        const data = {
+            hot: [
+                {name: 'كابتشينو', price: '10', img: 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?q=80&w=200'},
+                {name: 'تركية', price: '8', img: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=200'}
+            ],
+            cold: [
+                {name: 'كودرد', price: '11', img: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?q=80&w=200'},
+                {name: 'موهيتو', price: '8', img: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=200'}
+            ],
+            sweets: [
+                {name: 'حلا البندق', price: '8', img: 'https://images.unsplash.com/photo-1511018556340-d16986a1c194?q=80&w=200'},
+                {name: 'حلا بستاشيو', price: '8', img: 'https://images.unsplash.com/photo-1532371493798-3af5163c6efd?q=80&w=200'}
+            ]
+        };
+
+        function render(cat, btn) {
+            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            const cont = document.getElementById('container');
+            cont.innerHTML = '';
+            
+            // تغيير خلفية الهيدر بناءً على القسم
+            const header = document.getElementById('menuHeader');
+            if(cat === 'cold') header.style.backgroundImage = "url('https://images.unsplash.com/photo-1544145945-f2342b27bd40?q=80&w=1000')";
+            else header.style.backgroundImage = "url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1000')";
+
+            data[cat].forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'menu-item';
+                div.onclick = () => openModal(item);
+                div.innerHTML = `<img src="${item.img}" class="item-img"> <div><h3>${item.name}</h3><p>${item.price} ر.س</p></div>`;
+                cont.appendChild(div);
+            });
+        }
+
+        function openModal(item) {
+            document.getElementById('modalName').innerText = item.name;
+            document.getElementById('modalPrice').innerText = item.price;
+            document.getElementById('modalImg').src = item.img;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function closeModal() { document.getElementById('modal').style.display = 'none'; }
+        
+        // تشغيل افتراضي
+        render('hot', document.querySelector('.category-btn'));
+    </script>
+</body>
+</html>
