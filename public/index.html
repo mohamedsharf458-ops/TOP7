@@ -11,39 +11,32 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; }
         body { background-color: #f8fafc; color: #2d2d2d; direction: rtl; }
         
-        /* بانر الغلاف العلوي مع تأثير انتقال ناعم */
         .menu-header { position: relative; background-size: cover; background-position: center; text-align: center; padding: 65px 20px; color: white; transition: background-image 0.6s ease-in-out; }
         .menu-header .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.68); z-index: 1; }
         .header-content { position: relative; z-index: 2; }
         
-        /* اللوجو التفاعلي المتغير */
         .restaurant-logo { font-size: 36px; background: white; width: 76px; height: 76px; display: flex; align-items: center; justify-content: center; border-radius: 50%; margin: 0 auto 12px auto; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.3s ease; }
         .header-content h1 { font-size: 30px; font-weight: 800; letter-spacing: 0.5px; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
         .header-content p { font-size: 13.5px; color: #f1f5f9; margin-top: 4px; font-weight: 600; }
         
-        /* صندوق البحث */
         .search-box-container { padding: 0 16px; margin-top: -24px; position: relative; z-index: 10; }
         .search-box { max-width: 500px; margin: 0 auto; position: relative; background: white; border-radius: 30px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06); border: 1px solid #e2e8f0; display: flex; align-items: center; }
         .search-box input { width: 100%; padding: 15px 20px 15px 50px; border: none; outline: none; font-size: 14.5px; text-align: right; background: transparent; }
         .search-icon { position: absolute; left: 22px; color: #94a3b8; font-size: 16px; }
         
-        /* أزرار الأقسام */
         .categories-bar { display: flex; gap: 8px; padding: 25px 16px 15px 16px; max-width: 500px; margin: 0 auto; overflow-x: auto; white-space: nowrap; }
         .categories-bar::-webkit-scrollbar { height: 0px; }
         .category-btn { padding: 11px 18px; border: 1px solid #e2e8f0; background-color: white; border-radius: 25px; font-size: 13.5px; font-weight: 700; color: #475569; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.25s ease; }
         .category-btn.active { background-color: #1e1b4b; color: white; border-color: #1e1b4b; box-shadow: 0 6px 15px rgba(30, 27, 75, 0.3); }
         
-        /* حاوية عناصر المنيو */
         .menu-container { max-width: 500px; margin: 5px auto 100px auto; padding: 0 16px; display: flex; flex-direction: column; gap: 12px; }
         .menu-item { background-color: #ffffff; padding: 12px; border-radius: 18px; border: 1px solid #f1f5f9; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.015); display: flex; justify-content: space-between; align-items: center; gap: 12px; transition: transform 0.2s ease; }
         .menu-item:active { transform: scale(0.98); }
         .item-info { display: flex; align-items: center; gap: 14px; }
         
-        /* تصميم الصور المصغرة الدائرية لكل صنف */
         .item-thumbnail { width: 64px; height: 64px; border-radius: 14px; object-fit: cover; background-color: #f1f5f9; border: 1px solid #edf2f7; flex-shrink: 0; }
         .item-name { font-size: 15.5px; font-weight: 700; color: #0f172a; }
         
-        /* الأسعار والأحجام */
         .single-price { font-weight: 800; color: #b45309; font-size: 16.5px; white-space: nowrap; }
         .currency { font-size: 11px; font-weight: 600; color: #64748b; }
         .price-container { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
@@ -51,7 +44,6 @@
         .size-label { color: #64748b; font-weight: 600; background: #f1f5f9; padding: 1px 6px; border-radius: 6px; font-size: 10.5px; }
         .size-price { font-weight: 800; color: #b45309; min-width: 40px; text-align: left; }
         
-        /* زر الواتساب */
         .whatsapp-container { position: fixed; bottom: 22px; left: 0; right: 0; z-index: 1000; display: flex; justify-content: center; padding: 0 20px; }
         .whatsapp-btn { width: 100%; max-width: 468px; background-color: #25D366; color: white; text-align: center; padding: 14px; border-radius: 30px; font-weight: 700; font-size: 15.5px; text-decoration: none; display: block; box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4); }
     </style>
@@ -59,7 +51,7 @@
 <body>
 
     <div id="root">
-        <header class="menu-header" id="menuHeader" style="background-image: url('https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=1000');">
+        <header class="menu-header" id="menuHeader" style="background-image: url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1000');">
             <div class="overlay"></div>
             <div class="header-content">
                 <div class="restaurant-logo" id="restaurantLogo">☕</div>
@@ -83,7 +75,8 @@
         </div>
 
         <main class="menu-container" id="menuItemsContainer">
-            </main>
+            <!-- عناصر القائمة -->
+        </main>
 
         <div class="whatsapp-container">
             <a href="https://wa.me/966556077416" target="_blank" rel="noopener noreferrer" class="whatsapp-btn">
@@ -93,7 +86,6 @@
     </div>
 
     <script>
-        // إعدادات الغلاف الكبيرة المحدثة وصور الأقسام فائقة الجودة
         const categoryDetails = {
             hot: {
                 logo: '☕',
@@ -103,7 +95,7 @@
             cold: {
                 logo: '🧊',
                 subtitle: 'مشروبات باردة ومنعشة تروي عطشك',
-                bg: 'https://images.unsplash.com/photo-1461023058043-033481443bd9?q=80&w=1000' // خلفية مشروبات باردة ويسرسح بالفخامة
+                bg: 'https://images.unsplash.com/photo-1551782450-17144efb9c50?q=80&w=1000'
             },
             tea: {
                 logo: '🍵',
@@ -117,7 +109,6 @@
             }
         };
 
-        // المنيو الكامل مع صور مصغرة فريدة وصحيحة 100% لكل صنف على حدة
         const menu = {
             hot: [
                 { name: 'تركية', price: '8/5', hasSizes: true, img: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=120' },
@@ -145,20 +136,20 @@
                 { name: 'v60 حار', price: '8', hasSizes: false, img: 'https://images.unsplash.com/photo-1545665225-b23b99e4d45e?q=80&w=120' }
             ],
             cold: [
-                { name: 'كودرد', price: '11', hasSizes: false, img: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?q=80&w=120' },
+                { name: 'كودرد', price: '11', hasSizes: false, img: 'https://assets.salla.sa/OqgXb/yI7g445gK0T7y8GjK4fU4AxlIunZq0nizfA6h1gC.jpg' }, // تحديث: صورة علبة الكودرد الأصلية بناء على اختيارك
                 { name: 'موهيتو', price: '8', hasSizes: false, img: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=120' },
                 { name: 'موكا بارد', price: '12/10', hasSizes: true, img: 'https://images.unsplash.com/photo-1530373239216-42518e6b4063?q=80&w=120' },
                 { name: 'أيس أمريكاني', price: '10', hasSizes: false, img: 'https://images.unsplash.com/photo-1551046713-b45fdb3a224a?q=80&w=120' },
                 { name: 'شوكولاته بارد', price: '12/10', hasSizes: true, img: 'https://images.unsplash.com/photo-1541658016709-82535e94bc69?q=80&w=120' },
                 { name: 'ملك شيك كتكات', price: '14/12', hasSizes: true, img: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?q=80&w=120' },
                 { name: 'ملك شيك مارس', price: '14/12', hasSizes: true, img: 'https://images.unsplash.com/photo-1579954115545-a95591f28bfc?q=80&w=120' },
-                { name: 'ملك شيك كندر', price: '14/12', hasSizes: true, img: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=120' },
+                { name: 'ملك شيك كندر', price: '14/12', hasSizes: true, img: 'https://images.unsplash.com/photo-1541783245831-57d6fb0926d3?q=80&w=120' },
                 { name: 'ملك شيك نوتيلا', price: '14/12', hasSizes: true, img: 'https://images.unsplash.com/photo-1600718374662-0483d2b9da44?q=80&w=120' },
                 { name: 'ملك شيك لوتس', price: '14/12', hasSizes: true, img: 'https://images.unsplash.com/photo-1585502753372-e42bc5db9447?q=80&w=120' },
                 { name: 'ملك شيك OREO', price: '14/12', hasSizes: true, img: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?q=80&w=120' },
                 { name: 'ملك شيك سنيكرز', price: '14/12', hasSizes: true, img: 'https://images.unsplash.com/photo-1592321675774-3de57f3ee311?q=80&w=120' },
                 { name: 'v60 بارد', price: '10', hasSizes: false, img: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=120' },
-                { name: 'أيس أسبنيس لاتيه', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1553909489-cd47e0907980?q=80&w=120' },
+                { name: 'أيس أسبنيس لاتيه', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?q=80&w=120' },
                 { name: 'أيس لاتيه', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?q=80&w=120' },
                 { name: 'أيس كراميل لاتيه', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1461023058043-033481443bd9?q=80&w=120' },
                 { name: 'قهوة اليوم بارد', price: '5', hasSizes: false, img: 'https://images.unsplash.com/photo-1497515114629-f71d768fd07c?q=80&w=120' },
@@ -203,7 +194,7 @@
             document.getElementById('menuHeader').style.backgroundImage = `url('${details.bg}')`;
 
             const items = menu[currentCategory].filter(item => 
-                item.name.toLowerCase().includes(filterText.toLowerCase())
+                item.name.includes(filterText)
             );
 
             if(items.length === 0) {
