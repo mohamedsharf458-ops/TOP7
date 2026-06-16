@@ -44,27 +44,7 @@
         .size-label { color: #64748b; font-weight: 600; background: #f1f5f9; padding: 1px 6px; border-radius: 6px; font-size: 10.5px; }
         .size-price { font-weight: 800; color: #b45309; min-width: 40px; text-align: left; }
         
-        /* زر الواتساب الدائري العائم */
-        .whatsapp-float { 
-            position: fixed; 
-            bottom: 30px; 
-            right: 30px; 
-            width: 60px; 
-            height: 60px; 
-            background-color: #25D366; 
-            border-radius: 50%; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); 
-            z-index: 1000; 
-            text-decoration: none; 
-            transition: transform 0.3s ease;
-            background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg');
-            background-size: 35px 35px;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
+        .whatsapp-float { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background-color: #25D366; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); z-index: 1000; text-decoration: none; transition: transform 0.3s ease; background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg'); background-size: 35px 35px; background-position: center; background-repeat: no-repeat; }
         .whatsapp-float:hover { transform: scale(1.1); }
     </style>
 </head>
@@ -94,11 +74,9 @@
             <button class="category-btn" onclick="switchCategory('sweets', this)"><span>🍰</span> الحلويات</button>
         </div>
 
-        <main class="menu-container" id="menuItemsContainer">
-            </main>
+        <main class="menu-container" id="menuItemsContainer"></main>
 
-        <a href="https://wa.me/966556077416" target="_blank" rel="noopener noreferrer" class="whatsapp-float">
-        </a>
+        <a href="https://wa.me/966556077416" target="_blank" rel="noopener noreferrer" class="whatsapp-float"></a>
     </div>
 
     <script>
@@ -136,7 +114,7 @@
                 { name: 'v60 حار', price: '8', hasSizes: false, img: 'https://images.unsplash.com/photo-1545665225-b23b99e4d45e?q=80&w=120' }
             ],
             cold: [
-                { name: 'كودرد', price: '11', hasSizes: false, img: 'https://i.ibb.co/4Zk4YmNv/images.jpg' },
+                { name: 'كودرد', price: '11', hasSizes: false, img: 'https://i.ibb.co/bgSWNV7f/360-F-956310683-Nj-FOvi-M9-PPRoxku-Sm-HNPxif3k-Qs9am-AH.jpg' },
                 { name: 'موهيتو', price: '8', hasSizes: false, img: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=120' },
                 { name: 'موكا بارد', price: '12/10', hasSizes: true, img: 'https://images.unsplash.com/photo-1530373239216-42518e6b4063?q=80&w=120' },
                 { name: 'أيس أمريكاني', price: '10', hasSizes: false, img: 'https://images.unsplash.com/photo-1551046713-b45fdb3a224a?q=80&w=120' },
@@ -187,45 +165,26 @@
         function renderMenu(filterText = '') {
             const container = document.getElementById('menuItemsContainer');
             container.innerHTML = '';
-            
             const details = categoryDetails[currentCategory];
             document.getElementById('restaurantLogo').innerText = details.logo;
             document.getElementById('headerSubtitle').innerText = details.subtitle;
             document.getElementById('menuHeader').style.backgroundImage = `url('${details.bg}')`;
-
-            const items = menu[currentCategory].filter(item => 
-                item.name.includes(filterText)
-            );
-
+            const items = menu[currentCategory].filter(item => item.name.includes(filterText));
             if(items.length === 0) {
                 container.innerHTML = '<div style="text-align:center; padding: 40px; color:#64748b; font-weight:600;">لا توجد أصناف تطابق بحثك حالياً ☕</div>';
                 return;
             }
-
             items.forEach(item => {
                 const itemDiv = document.createElement('div');
                 itemDiv.className = 'menu-item';
-                
                 let priceHTML = '';
                 if (item.hasSizes) {
                     const prices = item.price.split('/');
-                    priceHTML = `
-                        <div class="price-container">
-                            <div class="size-row"><span class="size-label">وسط</span><span class="size-price">${prices[1]} ر.س</span></div>
-                            <div class="size-row"><span class="size-label">كبير</span><span class="size-price">${prices[0]} ر.س</span></div>
-                        </div>
-                    `;
+                    priceHTML = `<div class="price-container"><div class="size-row"><span class="size-label">وسط</span><span class="size-price">${prices[1]} ر.س</span></div><div class="size-row"><span class="size-label">كبير</span><span class="size-price">${prices[0]} ر.س</span></div></div>`;
                 } else {
                     priceHTML = `<span class="single-price">${item.price} <small class="currency">ر.س</small></span>`;
                 }
-
-                itemDiv.innerHTML = `
-                    <div class="item-info">
-                        <img src="${item.img}" alt="${item.name}" class="item-thumbnail" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=120'">
-                        <h3 class="item-name">${item.name}</h3>
-                    </div>
-                    ${priceHTML}
-                `;
+                itemDiv.innerHTML = `<div class="item-info"><img src="${item.img}" alt="${item.name}" class="item-thumbnail" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=120'"><h3 class="item-name">${item.name}</h3></div>${priceHTML}`;
                 container.appendChild(itemDiv);
             });
         }
@@ -236,7 +195,6 @@
             element.classList.add('active');
             document.getElementById('searchInput').value = '';
             renderMenu();
-            
             const logoEl = document.getElementById('restaurantLogo');
             logoEl.style.transform = 'scale(1.18) rotate(6deg)';
             setTimeout(() => { logoEl.style.transform = 'scale(1) rotate(0deg)'; }, 250);
@@ -246,7 +204,6 @@
             const text = document.getElementById('searchInput').value.trim();
             renderMenu(text);
         }
-
         renderMenu();
     </script>
 </body>
