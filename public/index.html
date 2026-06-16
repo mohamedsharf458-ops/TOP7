@@ -44,8 +44,43 @@
         .size-label { color: #64748b; font-weight: 600; background: #f1f5f9; padding: 1px 6px; border-radius: 6px; font-size: 10.5px; }
         .size-price { font-weight: 800; color: #b45309; min-width: 40px; text-align: left; }
         
-        .whatsapp-container { position: fixed; bottom: 22px; left: 0; right: 0; z-index: 1000; display: flex; justify-content: center; padding: 0 20px; }
-        .whatsapp-btn { width: 100%; max-width: 468px; background-color: #25D366; color: white; text-align: center; padding: 14px; border-radius: 30px; font-weight: 700; font-size: 15.5px; text-decoration: none; display: block; box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4); }
+        /* التعديل هنا: زر الواتساب الدائري العائم */
+        .whatsapp-float { 
+            position: fixed; 
+            bottom: 30px; 
+            right: 30px; 
+            background-color: #25D366; 
+            color: white; 
+            width: 60px; 
+            height: 60px; 
+            border-radius: 50%; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            font-size: 30px; 
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); 
+            z-index: 1000; 
+            text-decoration: none; 
+            transition: transform 0.3s ease;
+        }
+        .whatsapp-float:hover { transform: scale(1.1); }
+        
+        /* تولتيب يظهر الرقم عند التحويم أو يمكن استخدامه لعرض الرقم */
+        .whatsapp-float::after {
+            content: "0556077416";
+            position: absolute;
+            right: 70px;
+            background: #333;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s;
+        }
+        .whatsapp-float:hover::after { opacity: 1; visibility: visible; }
     </style>
 </head>
 <body>
@@ -77,34 +112,18 @@
         <main class="menu-container" id="menuItemsContainer">
             </main>
 
-        <div class="whatsapp-container">
-            <a href="https://wa.me/966556077416" target="_blank" rel="noopener noreferrer" class="whatsapp-btn">
-                💬 اطلب الآن عبر الواتساب (0556077416)
-            </a>
-        </div>
+        <a href="https://wa.me/966556077416" target="_blank" rel="noopener noreferrer" class="whatsapp-float">
+            💬
+        </a>
     </div>
 
     <script>
+        // ... (نفس كود الجافاسكربت السابق لا يحتاج تغيير)
         const categoryDetails = {
-            hot: {
-                logo: '☕',
-                subtitle: 'أجود محاصيل القهوة والمشروبات الساخنة',
-                bg: 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1000'
-            },
-            cold: {
-                logo: '🧊',
-                subtitle: 'مشروبات باردة ومنعشة تروي عطشك',
-            },
-            tea: {
-                logo: '🍵',
-                subtitle: 'تشكيلة مميزة من الشاي والأعشاب الدافئة',
-                bg: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?q=80&w=1000'
-            },
-            sweets: {
-                logo: '🍰',
-                subtitle: 'حلويات طازجة ولذيذة تكمل روقانك',
-                bg: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=1000'
-            }
+            hot: { logo: '☕', subtitle: 'أجود محاصيل القهوة والمشروبات الساخنة', bg: 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1000' },
+            cold: { logo: '🧊', subtitle: 'مشروبات باردة ومنعشة تروي عطشك' },
+            tea: { logo: '🍵', subtitle: 'تشكيلة مميزة من الشاي والأعشاب الدافئة', bg: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?q=80&w=1000' },
+            sweets: { logo: '🍰', subtitle: 'حلويات طازجة ولذيذة تكمل روقانك', bg: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=1000' }
         };
 
         const menu = {
@@ -134,7 +153,7 @@
                 { name: 'v60 حار', price: '8', hasSizes: false, img: 'https://images.unsplash.com/photo-1545665225-b23b99e4d45e?q=80&w=120' }
             ],
             cold: [
-                { name: 'كودرد', price: '11', hasSizes: false, img: 'https://ibb.co/BVkTrzsW' }, // تحديث: رابط مباشر ومضمون لعلبة الصودا الحمراء
+                { name: 'كودرد', price: '11', hasSizes: false, img: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?q=80&w=120' },
                 { name: 'موهيتو', price: '8', hasSizes: false, img: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=120' },
                 { name: 'موكا بارد', price: '12/10', hasSizes: true, img: 'https://images.unsplash.com/photo-1530373239216-42518e6b4063?q=80&w=120' },
                 { name: 'أيس أمريكاني', price: '10', hasSizes: false, img: 'https://images.unsplash.com/photo-1551046713-b45fdb3a224a?q=80&w=120' },
@@ -172,8 +191,8 @@
                 { name: 'كيك بارد', price: '12', hasSizes: false, img: 'https://images.unsplash.com/photo-1535141192574-5d4897c13636?q=80&w=120' },
                 { name: 'كوكيز', price: '6', hasSizes: false, img: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?q=80&w=120' },
                 { name: 'حلا تمر', price: '6', hasSizes: false, img: 'https://images.unsplash.com/photo-1541783245831-57d6fb0926d3?q=80&w=120' },
-                { name: 'حلا بندق', price: '8', hasSizes: false, img: 'https://images.unsplash.com/photo-1511018556340-d16986a1c194?q=80&w=120' }, // تحديث: صورة حلا بندق وشوكولاتة واضحة ومستقرة
-                { name: 'حلا بستاشيو', price: '8', hasSizes: false, img: 'https://images.unsplash.com/photo-1532371493798-3af5163c6efd?q=80&w=120' }, // تحديث: صورة حلا الفستق الأخضر الفخم
+                { name: 'حلا بندق', price: '8', hasSizes: false, img: 'https://images.unsplash.com/photo-1511018556340-d16986a1c194?q=80&w=120' },
+                { name: 'حلا بستاشيو', price: '8', hasSizes: false, img: 'https://images.unsplash.com/photo-1532371493798-3af5163c6efd?q=80&w=120' },
                 { name: 'كرمل', price: '10', hasSizes: false, img: 'https://images.unsplash.com/photo-1587314168485-3236d6710814?q=80&w=120' },
                 { name: 'بلجيكي', price: '12', hasSizes: false, img: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=120' },
                 { name: 'حلا بارد', price: '12', hasSizes: false, img: 'https://images.unsplash.com/photo-1511018556340-d16986a1c194?q=80&w=120' }
