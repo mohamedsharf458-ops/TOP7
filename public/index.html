@@ -3,97 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TOP 7 COFFEE - القائمة الكاملة</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>TOP 7 COFFEE - المنيو الكامل</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
-        body { background-color: #f8fafc; color: #2d2d2d; direction: rtl; }
-        .menu-header { position: relative; background-size: cover; background-position: center; text-align: center; padding: 65px 20px; color: white; transition: background-image 0.6s ease-in-out; }
-        .menu-header .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.68); z-index: 1; }
-        .header-content { position: relative; z-index: 2; }
-        .restaurant-logo { font-size: 36px; background: white; width: 76px; height: 76px; display: flex; align-items: center; justify-content: center; border-radius: 50%; margin: 0 auto 12px auto; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-        .header-content h1 { font-size: 30px; font-weight: 800; }
-        .categories-bar { display: flex; gap: 8px; padding: 25px 16px 15px 16px; max-width: 500px; margin: 0 auto; overflow-x: auto; }
-        .category-btn { padding: 11px 18px; border: 1px solid #e2e8f0; background-color: white; border-radius: 25px; font-weight: 700; cursor: pointer; white-space: nowrap; }
-        .category-btn.active { background-color: #1e1b4b; color: white; }
-        .menu-container { max-width: 500px; margin: 5px auto 100px auto; padding: 0 16px; display: flex; flex-direction: column; gap: 12px; }
-        .menu-item { background-color: #ffffff; padding: 12px; border-radius: 18px; border: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; }
-        .item-info { display: flex; align-items: center; gap: 14px; }
-        .item-thumbnail { width: 60px; height: 60px; border-radius: 12px; object-fit: cover; background: #eee; }
-        .price-container { text-align: left; font-weight: 800; color: #b45309; }
+        body { font-family: 'Cairo', sans-serif; background: #f8fafc; margin: 0; }
+        .menu-header { height: 220px; background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; color: white; transition: 0.5s; position: relative; }
+        .overlay { position: absolute; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); }
+        .categories { display: flex; justify-content: center; gap: 8px; padding: 15px; overflow-x: auto; background: white; }
+        .btn { padding: 8px 15px; border: 1px solid #e2e8f0; border-radius: 20px; font-weight: 700; cursor: pointer; background: white; white-space: nowrap; }
+        .btn.active { background: #1e1b4b; color: white; border-color: #1e1b4b; }
+        .menu-list { max-width: 500px; margin: auto; padding: 10px; display: grid; gap: 10px; }
+        .item { background: white; padding: 10px; border-radius: 15px; display: flex; align-items: center; gap: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .item img { width: 70px; height: 70px; border-radius: 10px; object-fit: cover; background: #f1f5f9; }
+        .info { flex-grow: 1; }
+        .name { font-weight: 700; display: block; font-size: 15px; }
+        .price { color: #b45309; font-weight: 800; font-size: 14px; }
     </style>
 </head>
 <body>
 
-    <header class="menu-header" id="menuHeader" style="background-image: url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1000');">
+    <header class="menu-header" id="header" style="background-image: url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=800');">
         <div class="overlay"></div>
-        <div class="header-content">
-            <div class="restaurant-logo" id="restaurantLogo">☕</div>
-            <h1 id="headerTitle">TOP 7 COFFEE</h1>
-            <p id="headerSubtitle">أجود محاصيل القهوة والمشروبات</p>
-        </div>
+        <h1 style="position: relative; z-index: 1;">TOP 7 COFFEE</h1>
     </header>
 
-    <div class="categories-bar">
-        <button class="category-btn active" onclick="loadMenu('hot', this)">☕ الساخنة</button>
-        <button class="category-btn" onclick="loadMenu('cold', this)">🧊 الباردة</button>
-        <button class="category-btn" onclick="loadMenu('tea', this)">🍵 الشاي</button>
-        <button class="category-btn" onclick="loadMenu('sweets', this)">🍰 الحلويات</button>
+    <div class="categories">
+        <button class="btn active" onclick="show('hot', this)">الساخنة</button>
+        <button class="btn" onclick="show('cold', this)">الباردة</button>
+        <button class="btn" onclick="show('tea', this)">الشاي</button>
+        <button class="btn" onclick="show('sweets', this)">الحلويات</button>
     </div>
 
-    <main class="menu-container" id="menuItems"></main>
+    <div class="menu-list" id="list"></div>
 
     <script>
         const data = {
             hot: [
-                { name: 'اسبريسو', price: '6 ر.س' }, { name: 'كابتشينو', price: '10/8 ر.س' },
-                { name: 'لاتيه', price: '10/8 ر.س' }, { name: 'فلات وايت', price: '9 ر.س' },
-                { name: 'قهوة تركية', price: '8/5 ر.س' }, { name: 'هوت شوكليت', price: '10 ر.س' }
+                {n: 'تركية', p: '8/5', i: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?w=200'},
+                {n: 'كابتشينو', p: '10/8', i: 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=200'},
+                {n: 'هوت شوكليت', p: '10/8', i: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=200'},
+                {n: 'حليب زنجبيل', p: '5/3', i: 'https://images.unsplash.com/photo-1582234372722-50d22d00778c?w=200'},
+                {n: 'كورتادو', p: '7', i: 'https://images.unsplash.com/photo-1534778101976-62847782c213?w=200'},
+                {n: 'فلات وايت', p: '7', i: 'https://images.unsplash.com/photo-1559523161-0fc0d8b3a5d7?w=200'},
+                {n: 'سحلب', p: '8', i: 'https://images.unsplash.com/photo-1628840042765-356cda07504e?w=200'},
+                {n: 'شاي كرك', p: '7/5', i: 'https://images.unsplash.com/photo-1563911302283-d2bc129e7570?w=200'},
+                {n: 'نسكافيه', p: '6/4', i: 'https://images.unsplash.com/photo-1506368249639-73a05d6f6488?w=200'},
+                {n: 'ميكاتو', p: '10/8', i: 'https://images.unsplash.com/photo-1594451000785-305886d3ad35?w=200'},
+                {n: 'أسبانيس حار', p: '11/9', i: 'https://images.unsplash.com/photo-1507133750040-4a8f57021571?w=200'},
+                {n: 'كرمـل كابتشينو', p: '11/9', i: 'https://images.unsplash.com/photo-1584824486509-112e4181ff6b?w=200'},
+                {n: 'ما تشا', p: '12', i: 'https://images.unsplash.com/photo-1597481499750-3e6b22637e12?w=200'},
+                {n: 'توفي حار', p: '10/8', i: 'https://images.unsplash.com/photo-1574406133039-44585c54e183?w=200'},
+                {n: 'موكا حار', p: '10/8', i: 'https://images.unsplash.com/photo-1530373239216-42518e6b4063?w=200'},
+                {n: 'لاتيه', p: '10/8', i: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?w=200'},
+                {n: 'إسبريسو', p: '8/5', i: 'https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=200'},
+                {n: 'قهوة ايطالي', p: '10/8', i: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=200'},
+                {n: 'توفي', p: '7/5', i: 'https://images.unsplash.com/photo-1574406133039-44585c54e183?w=200'},
+                {n: 'قهوة فرنسي', p: '6/4', i: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=200'},
+                {n: 'قهوة اليوم حار', p: '10/8', i: 'https://images.unsplash.com/photo-1506368249639-73a05d6f6488?w=200'},
+                {n: 'قهوة أمريكية', p: '11/9', i: 'https://images.unsplash.com/photo-1512568400610-66da2841a1a5?w=200'},
+                {n: 'في 60 حار', p: '11/9', i: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=200'}
             ],
             cold: [
-                { name: 'كودرد', price: '11 ر.س' }, { name: 'موهيتو', price: '8 ر.س' },
-                { name: 'أيس لاتيه', price: '10 ر.س' }, { name: 'أيس أمريكانو', price: '9 ر.س' },
-                { name: 'فرابيه', price: '12 ر.س' }, { name: 'ميلك شيك', price: '12 ر.س' }
+                {n: 'كودرد', p: '11', i: 'https://i.ibb.co/4Zk4YmNv/images.jpg'},
+                {n: 'موهيتو', p: '8', i: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=200'},
+                {n: 'موكا بارد', p: '12/10', i: 'https://images.unsplash.com/photo-1530373239216-42518e6b4063?w=200'},
+                {n: 'في 60 بارد', p: '10', i: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=200'},
+                {n: 'أيس أمريكانو', p: '10', i: 'https://images.unsplash.com/photo-1556679343-c7306c1d76bc?w=200'},
+                {n: 'شوكولاته بارد', p: '12/10', i: 'https://images.unsplash.com/photo-1593016480579-990714ed9995?w=200'},
+                {n: 'ميلك شيك أوريو', p: '14/12', i: 'https://images.unsplash.com/photo-1590080875901-771146875704?w=200'},
+                {n: 'ميلك شيك سنيكرز', p: '14/12', i: 'https://images.unsplash.com/photo-1626074353765-51da33f0406b?w=200'},
+                {n: 'ملك شيك كتكات', p: '14/12', i: 'https://images.unsplash.com/photo-1626074353765-51da33f0406b?w=200'},
+                {n: 'ملك شيك مارس', p: '14/12', i: 'https://images.unsplash.com/photo-1626074353765-51da33f0406b?w=200'},
+                {n: 'ملك شيك كندر', p: '14/12', i: 'https://images.unsplash.com/photo-1626074353765-51da33f0406b?w=200'},
+                {n: 'ملك شيك نوتيلا', p: '14/12', i: 'https://images.unsplash.com/photo-1626074353765-51da33f0406b?w=200'},
+                {n: 'ملك شيك لوتس', p: '14/12', i: 'https://images.unsplash.com/photo-1626074353765-51da33f0406b?w=200'},
+                {n: 'أيس أسبانيس لاتيه', p: '10/8', i: 'https://images.unsplash.com/photo-1507133750040-4a8f57021571?w=200'},
+                {n: 'أيس لاتيه', p: '10/8', i: 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=200'},
+                {n: 'أيس كراميل لاتيه', p: '10/8', i: 'https://images.unsplash.com/photo-1507133750040-4a8f57021571?w=200'},
+                {n: 'قهوة اليوم بارد', p: '5', i: 'https://images.unsplash.com/photo-1506368249639-73a05d6f6488?w=200'},
+                {n: 'كركديه بارد', p: '6', i: 'https://images.unsplash.com/photo-1550547660-d9450f859349?w=200'},
+                {n: 'توفي بارد', p: '12/10', i: 'https://images.unsplash.com/photo-1574406133039-44585c54e183?w=200'}
             ],
             tea: [
-                { name: 'شاي أحمر', price: '2 ر.س' }, { name: 'شاي أخضر', price: '3 ر.س' },
-                { name: 'شاي بالنعناع', price: '4 ر.س' }, { name: 'شاي كرك', price: '5 ر.س' }
+                {n: 'شاي سادة', p: '4/2', i: 'https://images.unsplash.com/photo-1597481499750-3e6b22637e12?w=200'},
+                {n: 'شاي كمون', p: '5/3', i: 'https://images.unsplash.com/photo-1597481499750-3e6b22637e12?w=200'},
+                {n: 'شاي بابونج', p: '5/3', i: 'https://images.unsplash.com/photo-1597481499750-3e6b22637e12?w=200'},
+                {n: 'شاي بالحليب', p: '5/3', i: 'https://images.unsplash.com/photo-1597481499750-3e6b22637e12?w=200'},
+                {n: 'شاي أخضر', p: '5/3', i: 'https://images.unsplash.com/photo-1597481499750-3e6b22637e12?w=200'},
+                {n: 'شاي بالنعناع', p: '4/2', i: 'https://images.unsplash.com/photo-1546812808-92e959665765?w=200'},
+                {n: 'شاي إنجليزي', p: '5/3', i: 'https://images.unsplash.com/photo-1597481499750-3e6b22637e12?w=200'},
+                {n: 'شاي ينسون', p: '5/3', i: 'https://images.unsplash.com/photo-1597481499750-3e6b22637e12?w=200'}
             ],
             sweets: [
-                { name: 'بان كيك', price: '8 ر.س' }, { name: 'كريب نوتيلا', price: '8 ر.س' },
-                { name: 'كوكيز', price: '6 ر.س' }, { name: 'تشيز كيك', price: '10 ر.س' },
-                { name: 'وافل', price: '9 ر.س' }
+                {n: 'حلا تمر', p: '6', i: 'https://images.unsplash.com/photo-1598218882229-c4b72615438e?w=200'},
+                {n: 'حلا بندق', p: '8', i: 'https://images.unsplash.com/photo-1605291244307-e05417937c95?w=200'},
+                {n: 'حلا بستاشيو', p: '8', i: 'https://images.unsplash.com/photo-1596464530030-345388062831?w=200'},
+                {n: 'كرمل', p: '10', i: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=200'},
+                {n: 'بلجيكي', p: '12', i: 'https://images.unsplash.com/photo-1511367461969-f8514b301a69?w=200'},
+                {n: 'حلا بارد', p: '12', i: 'https://images.unsplash.com/photo-1506368249639-73a05d6f6488?w=200'},
+                {n: 'بان كيك نوتيلا', p: '8', i: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=200'},
+                {n: 'بان كيك مكس', p: '10', i: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=200'},
+                {n: 'كريب نوتيلا', p: '8', i: 'https://images.unsplash.com/photo-1519676867240-f03562e64548?w=200'},
+                {n: 'كريب مكس', p: '10', i: 'https://images.unsplash.com/photo-1519676867240-f03562e64548?w=200'},
+                {n: 'كيك بارد', p: '12', i: 'https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=200'},
+                {n: 'كوكيز', p: '6', i: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=200'}
             ]
         };
 
-        function loadMenu(cat, btn) {
-            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+        function show(cat, btn) {
+            document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            
-            const container = document.getElementById('menuItems');
-            const header = document.getElementById('menuHeader');
-            container.innerHTML = '';
-            
-            // تغيير صورة البانر عند اختيار المشروبات الباردة
-            if(cat === 'cold') {
-                header.style.backgroundImage = "url('https://i.ibb.co/bgSWNV7f/360-F-956310683-Nj-FOvi-M9-PPRoxku-Sm-HNPxif3k-Qs9am-AH.jpg')";
-            } else {
-                header.style.backgroundImage = "url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1000')";
-            }
-
+            const list = document.getElementById('list');
+            const header = document.getElementById('header');
+            list.innerHTML = '';
+            header.style.backgroundImage = cat === 'cold' ? "url('https://i.ibb.co/bgSWNV7f/360-F-956310683-Nj-FOvi-M9-PPRoxku-Sm-HNPxif3k-Qs9am-AH.jpg')" : "url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=800')";
             data[cat].forEach(item => {
-                container.innerHTML += `
-                    <div class="menu-item">
-                        <div class="item-info">
-                            <div class="item-thumbnail"></div>
-                            <h3>${item.name}</h3>
-                        </div>
-                        <div class="price-container">${item.price}</div>
-                    </div>`;
+                list.innerHTML += `<div class="item"><img src="${item.i}"><div class="info"><span class="name">${item.n}</span><span class="price">${item.p} ر.س</span></div></div>`;
             });
         }
-        // تحميل البداية
-        loadMenu('hot', document.querySelector('.category-btn'));
+        show('hot', document.querySelector('.btn'));
     </script>
 </body>
 </html>
