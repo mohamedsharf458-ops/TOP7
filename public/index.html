@@ -44,43 +44,28 @@
         .size-label { color: #64748b; font-weight: 600; background: #f1f5f9; padding: 1px 6px; border-radius: 6px; font-size: 10.5px; }
         .size-price { font-weight: 800; color: #b45309; min-width: 40px; text-align: left; }
         
-        /* التعديل هنا: زر الواتساب الدائري العائم */
+        /* زر الواتساب الدائري العائم */
         .whatsapp-float { 
             position: fixed; 
             bottom: 30px; 
             right: 30px; 
-            background-color: #25D366; 
-            color: white; 
             width: 60px; 
             height: 60px; 
+            background-color: #25D366; 
             border-radius: 50%; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
-            font-size: 30px; 
             box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); 
             z-index: 1000; 
             text-decoration: none; 
             transition: transform 0.3s ease;
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg');
+            background-size: 35px 35px;
+            background-position: center;
+            background-repeat: no-repeat;
         }
         .whatsapp-float:hover { transform: scale(1.1); }
-        
-        /* تولتيب يظهر الرقم عند التحويم أو يمكن استخدامه لعرض الرقم */
-        .whatsapp-float::after {
-            content: "0556077416";
-            position: absolute;
-            right: 70px;
-            background: #333;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 12px;
-            white-space: nowrap;
-            opacity: 0;
-            visibility: hidden;
-            transition: 0.3s;
-        }
-        .whatsapp-float:hover::after { opacity: 1; visibility: visible; }
     </style>
 </head>
 <body>
@@ -113,12 +98,10 @@
             </main>
 
         <a href="https://wa.me/966556077416" target="_blank" rel="noopener noreferrer" class="whatsapp-float">
-            💬
         </a>
     </div>
 
     <script>
-        // ... (نفس كود الجافاسكربت السابق لا يحتاج تغيير)
         const categoryDetails = {
             hot: { logo: '☕', subtitle: 'أجود محاصيل القهوة والمشروبات الساخنة', bg: 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1000' },
             cold: { logo: '🧊', subtitle: 'مشروبات باردة ومنعشة تروي عطشك' },
