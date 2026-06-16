@@ -3,141 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TOP 7 COFFEE - القائمة الإلكترونية</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>TOP 7 COFFEE - القائمة الكاملة</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
         body { background-color: #f8fafc; color: #2d2d2d; direction: rtl; }
-        
         .menu-header { position: relative; background-size: cover; background-position: center; text-align: center; padding: 65px 20px; color: white; transition: background-image 0.6s ease-in-out; }
         .menu-header .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.68); z-index: 1; }
         .header-content { position: relative; z-index: 2; }
-        
-        .restaurant-logo { font-size: 36px; background: white; width: 76px; height: 76px; display: flex; align-items: center; justify-content: center; border-radius: 50%; margin: 0 auto 12px auto; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.3s ease; }
-        .header-content h1 { font-size: 30px; font-weight: 800; letter-spacing: 0.5px; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
-        .header-content p { font-size: 13.5px; color: #f1f5f9; margin-top: 4px; font-weight: 600; }
-        
-        .search-box-container { padding: 0 16px; margin-top: -24px; position: relative; z-index: 10; }
-        .search-box { max-width: 500px; margin: 0 auto; position: relative; background: white; border-radius: 30px; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06); border: 1px solid #e2e8f0; display: flex; align-items: center; }
-        .search-box input { width: 100%; padding: 15px 20px 15px 50px; border: none; outline: none; font-size: 14.5px; text-align: right; background: transparent; }
-        .search-icon { position: absolute; left: 22px; color: #94a3b8; font-size: 16px; }
-        
-        .categories-bar { display: flex; gap: 8px; padding: 25px 16px 15px 16px; max-width: 500px; margin: 0 auto; overflow-x: auto; white-space: nowrap; }
-        .categories-bar::-webkit-scrollbar { height: 0px; }
-        .category-btn { padding: 11px 18px; border: 1px solid #e2e8f0; background-color: white; border-radius: 25px; font-size: 13.5px; font-weight: 700; color: #475569; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.25s ease; }
-        .category-btn.active { background-color: #1e1b4b; color: white; border-color: #1e1b4b; box-shadow: 0 6px 15px rgba(30, 27, 75, 0.3); }
-        
+        .restaurant-logo { font-size: 36px; background: white; width: 76px; height: 76px; display: flex; align-items: center; justify-content: center; border-radius: 50%; margin: 0 auto 12px auto; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .header-content h1 { font-size: 30px; font-weight: 800; }
+        .categories-bar { display: flex; gap: 8px; padding: 25px 16px 15px 16px; max-width: 500px; margin: 0 auto; overflow-x: auto; }
+        .category-btn { padding: 11px 18px; border: 1px solid #e2e8f0; background-color: white; border-radius: 25px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+        .category-btn.active { background-color: #1e1b4b; color: white; }
         .menu-container { max-width: 500px; margin: 5px auto 100px auto; padding: 0 16px; display: flex; flex-direction: column; gap: 12px; }
-        .menu-item { background-color: #ffffff; padding: 12px; border-radius: 18px; border: 1px solid #f1f5f9; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.015); display: flex; justify-content: space-between; align-items: center; gap: 12px; transition: transform 0.2s ease; }
-        .menu-item:active { transform: scale(0.98); }
+        .menu-item { background-color: #ffffff; padding: 12px; border-radius: 18px; border: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; }
         .item-info { display: flex; align-items: center; gap: 14px; }
-        
-        .item-thumbnail { width: 64px; height: 64px; border-radius: 14px; object-fit: cover; background-color: #f1f5f9; border: 1px solid #edf2f7; flex-shrink: 0; }
-        .item-name { font-size: 15.5px; font-weight: 700; color: #0f172a; }
-        
-        .single-price { font-weight: 800; color: #b45309; font-size: 16.5px; white-space: nowrap; }
-        .currency { font-size: 11px; font-weight: 600; color: #64748b; }
-        .price-container { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
-        .size-row { display: flex; gap: 4px; align-items: center; font-size: 12px; white-space: nowrap; }
-        .size-label { color: #64748b; font-weight: 600; background: #f1f5f9; padding: 1px 6px; border-radius: 6px; font-size: 10.5px; }
-        .size-price { font-weight: 800; color: #b45309; min-width: 40px; text-align: left; }
-        
-        .whatsapp-float { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background-color: #25D366; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); z-index: 1000; text-decoration: none; transition: transform 0.3s ease; background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg'); background-size: 35px 35px; background-position: center; background-repeat: no-repeat; }
-        .whatsapp-float:hover { transform: scale(1.1); }
+        .item-thumbnail { width: 60px; height: 60px; border-radius: 12px; object-fit: cover; background: #eee; }
+        .price-container { text-align: left; font-weight: 800; color: #b45309; }
     </style>
 </head>
 <body>
 
-    <div id="root">
-        <header class="menu-header" id="menuHeader" style="background-image: url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1000');">
-            <div class="overlay"></div>
-            <div class="header-content">
-                <div class="restaurant-logo" id="restaurantLogo">☕</div>
-                <h1>TOP 7 COFFEE</h1>
-                <p id="headerSubtitle">المشروبات الساخنة الفاخرة</p>
-            </div>
-        </header>
-
-        <div class="search-box-container">
-            <div class="search-box">
-                <input type="text" id="searchInput" oninput="searchMenu()" placeholder="ابحث عن طلبك المفضّل...">
-                <span class="search-icon">🔍</span>
-            </div>
+    <header class="menu-header" id="menuHeader" style="background-image: url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1000');">
+        <div class="overlay"></div>
+        <div class="header-content">
+            <div class="restaurant-logo" id="restaurantLogo">☕</div>
+            <h1 id="headerTitle">TOP 7 COFFEE</h1>
+            <p id="headerSubtitle">أجود محاصيل القهوة والمشروبات</p>
         </div>
+    </header>
 
-        <div class="categories-bar">
-            <button class="category-btn active" onclick="switchCategory('hot', this)"><span>☕</span> المشروبات الساخنة</button>
-            <button class="category-btn" onclick="switchCategory('cold', this)"><span>🧊</span> المشروبات الباردة</button>
-            <button class="category-btn" onclick="switchCategory('tea', this)"><span>🍵</span> الشاي</button>
-            <button class="category-btn" onclick="switchCategory('sweets', this)"><span>🍰</span> الحلويات</button>
-        </div>
-
-        <main class="menu-container" id="menuItemsContainer"></main>
-
-        <a href="https://wa.me/966556077416" target="_blank" rel="noopener noreferrer" class="whatsapp-float"></a>
+    <div class="categories-bar">
+        <button class="category-btn active" onclick="loadMenu('hot', this)">☕ الساخنة</button>
+        <button class="category-btn" onclick="loadMenu('cold', this)">🧊 الباردة</button>
+        <button class="category-btn" onclick="loadMenu('tea', this)">🍵 الشاي</button>
+        <button class="category-btn" onclick="loadMenu('sweets', this)">🍰 الحلويات</button>
     </div>
 
-    <script>
-        const categoryDetails = {
-            hot: { logo: '☕', subtitle: 'أجود محاصيل القهوة والمشروبات الساخنة', bg: 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1000' },
-            cold: { logo: '🧊', subtitle: 'مشروبات باردة ومنعشة تروي عطشك', bg: 'https://i.ibb.co/bgSWNV7f/360-F-956310683-Nj-FOvi-M9-PPRoxku-Sm-HNPxif3k-Qs9am-AH.jpg' }, 
-            tea: { logo: '🍵', subtitle: 'تشكيلة مميزة من الشاي والأعشاب الدافئة', bg: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?q=80&w=1000' },
-            sweets: { logo: '🍰', subtitle: 'حلويات طازجة ولذيذة تكمل روقانك', bg: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=120' }
-        };
+    <main class="menu-container" id="menuItems"></main>
 
-        const menu = {
+    <script>
+        const data = {
             hot: [
-                { name: 'تركية', price: '8/5', hasSizes: true, img: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=120' },
-                { name: 'كابتشينو', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?q=80&w=120' }
+                { name: 'اسبريسو', price: '6 ر.س' }, { name: 'كابتشينو', price: '10/8 ر.س' },
+                { name: 'لاتيه', price: '10/8 ر.س' }, { name: 'فلات وايت', price: '9 ر.س' },
+                { name: 'قهوة تركية', price: '8/5 ر.س' }, { name: 'هوت شوكليت', price: '10 ر.س' }
             ],
             cold: [
-                { name: 'كودرد', price: '11', hasSizes: false, img: 'https://i.ibb.co/4Zk4YmNv/images.jpg' },
-                { name: 'موهيتو', price: '8', hasSizes: false, img: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=120' }
+                { name: 'كودرد', price: '11 ر.س' }, { name: 'موهيتو', price: '8 ر.س' },
+                { name: 'أيس لاتيه', price: '10 ر.س' }, { name: 'أيس أمريكانو', price: '9 ر.س' },
+                { name: 'فرابيه', price: '12 ر.س' }, { name: 'ميلك شيك', price: '12 ر.س' }
             ],
             tea: [
-                { name: 'شاي سادة', price: '4/2', hasSizes: true, img: 'https://images.unsplash.com/photo-1597481499750-3e6b22637e12?q=80&w=120' }
+                { name: 'شاي أحمر', price: '2 ر.س' }, { name: 'شاي أخضر', price: '3 ر.س' },
+                { name: 'شاي بالنعناع', price: '4 ر.س' }, { name: 'شاي كرك', price: '5 ر.س' }
             ],
             sweets: [
-                { name: 'بان كيك نوتيلا', price: '8', hasSizes: false, img: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?q=80&w=120' }
+                { name: 'بان كيك', price: '8 ر.س' }, { name: 'كريب نوتيلا', price: '8 ر.س' },
+                { name: 'كوكيز', price: '6 ر.س' }, { name: 'تشيز كيك', price: '10 ر.س' },
+                { name: 'وافل', price: '9 ر.س' }
             ]
         };
 
-        let currentCategory = 'hot';
-
-        function renderMenu(filterText = '') {
-            const container = document.getElementById('menuItemsContainer');
+        function loadMenu(cat, btn) {
+            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            const container = document.getElementById('menuItems');
+            const header = document.getElementById('menuHeader');
             container.innerHTML = '';
             
-            const details = categoryDetails[currentCategory];
-            document.getElementById('restaurantLogo').innerText = details.logo;
-            document.getElementById('headerSubtitle').innerText = details.subtitle;
-            document.getElementById('menuHeader').style.backgroundImage = `url('${details.bg}')`;
+            // تغيير صورة البانر عند اختيار المشروبات الباردة
+            if(cat === 'cold') {
+                header.style.backgroundImage = "url('https://i.ibb.co/bgSWNV7f/360-F-956310683-Nj-FOvi-M9-PPRoxku-Sm-HNPxif3k-Qs9am-AH.jpg')";
+            } else {
+                header.style.backgroundImage = "url('https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1000')";
+            }
 
-            const items = menu[currentCategory].filter(item => item.name.includes(filterText));
-            items.forEach(item => {
-                const itemDiv = document.createElement('div');
-                itemDiv.className = 'menu-item';
-                let priceHTML = item.hasSizes ? `<div class="price-container"><div class="size-row"><span class="size-label">وسط</span><span class="size-price">${item.price.split('/')[1]} ر.س</span></div><div class="size-row"><span class="size-label">كبير</span><span class="size-price">${item.price.split('/')[0]} ر.س</span></div></div>` : `<span class="single-price">${item.price} <small class="currency">ر.س</small></span>`;
-                itemDiv.innerHTML = `<div class="item-info"><img src="${item.img}" class="item-thumbnail"><h3 class="item-name">${item.name}</h3></div>${priceHTML}`;
-                container.appendChild(itemDiv);
+            data[cat].forEach(item => {
+                container.innerHTML += `
+                    <div class="menu-item">
+                        <div class="item-info">
+                            <div class="item-thumbnail"></div>
+                            <h3>${item.name}</h3>
+                        </div>
+                        <div class="price-container">${item.price}</div>
+                    </div>`;
             });
         }
-
-        function switchCategory(category, element) {
-            currentCategory = category;
-            document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
-            element.classList.add('active');
-            renderMenu();
-        }
-
-        function searchMenu() {
-            const searchText = document.getElementById('searchInput').value;
-            renderMenu(searchText);
-        }
-
-        renderMenu();
+        // تحميل البداية
+        loadMenu('hot', document.querySelector('.category-btn'));
     </script>
 </body>
 </html>
