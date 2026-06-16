@@ -80,7 +80,6 @@
     </div>
 
     <script>
-        // تعريف خلفيات الأقسام هنا
         const categoryDetails = {
             hot: { logo: '☕', subtitle: 'أجود محاصيل القهوة والمشروبات الساخنة', bg: 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1000' },
             cold: { logo: '🧊', subtitle: 'مشروبات باردة ومنعشة تروي عطشك', bg: 'https://images.unsplash.com/photo-1541658016709-82535e94bc69?q=80&w=1000' }, 
@@ -91,17 +90,73 @@
         const menu = {
             hot: [
                 { name: 'تركية', price: '8/5', hasSizes: true, img: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=120' },
-                { name: 'كابتشينو', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?q=80&w=120' }
+                { name: 'كابتشينو', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?q=80&w=120' },
+                { name: 'هوت شوكليت', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?q=80&w=120' },
+                { name: 'حليب زنجبيل', price: '5/3', hasSizes: true, img: 'https://images.unsplash.com/photo-1621263764928-df1444c5e859?q=80&w=120' },
+                { name: 'كورتادو', price: '7', hasSizes: false, img: 'https://images.unsplash.com/photo-1534778101976-62847782c213?q=80&w=120' },
+                { name: 'فلات وايت', price: '7', hasSizes: false, img: 'https://images.unsplash.com/photo-1577968897966-3d4325b36b61?q=80&w=120' },
+                { name: 'سحلب', price: '8', hasSizes: false, img: 'https://images.unsplash.com/photo-1542729779-11d8fe8e25f6?q=80&w=120' },
+                { name: 'شاي كرك', price: '7/5', hasSizes: true, img: 'https://images.unsplash.com/photo-1563822249548-9a72b6353cd1?q=80&w=120' },
+                { name: 'نسكافيه', price: '6/4', hasSizes: true, img: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?q=80&w=120' },
+                { name: 'ميكاتو', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1594911774802-8822a707999d?q=80&w=120' },
+                { name: 'أسبانيش حار', price: '11/9', hasSizes: true, img: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=120' },
+                { name: 'كرمل كابتشينو', price: '11/9', hasSizes: true, img: 'https://images.unsplash.com/photo-1517256064527-09c53b2d0c6b?q=80&w=120' },
+                { name: 'ماتشا', price: '12', hasSizes: false, img: 'https://images.unsplash.com/photo-1536256263959-770b48d82b0a?q=80&w=120' },
+                { name: 'توي حار', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1606791405792-1004f1718d0c?q=80&w=120' },
+                { name: 'موكا حار', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1553909489-cd47e0907980?q=80&w=120' },
+                { name: 'لاتيه', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=120' },
+                { name: 'إسبريسو', price: '8/5', hasSizes: true, img: 'https://images.unsplash.com/photo-1510591509382-7434f3133a15?q=80&w=120' },
+                { name: 'قهوة إيطالي', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1552332386-f8dd00dc2f85?q=80&w=120' },
+                { name: 'توي', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1606791405792-1004f1718d0c?q=80&w=120' },
+                { name: 'قهوة فرنسي', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=120' },
+                { name: 'قهوة اليوم حار', price: '5', hasSizes: false, img: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=120' },
+                { name: 'قهوة أمريكية', price: '8', hasSizes: false, img: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=120' },
+                { name: 'v60 حار', price: '8', hasSizes: false, img: 'https://images.unsplash.com/photo-1545665225-b23b99e4d45e?q=80&w=120' }
             ],
             cold: [
-                { name: 'كودرد', price: '11', hasSizes: false, img: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?q=80&w=120' },
-                { name: 'موهيتو', price: '8', hasSizes: false, img: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=120' }
+                { name: 'كودرد', price: '11', hasSizes: false, img: 'https://i.ibb.co/bgSWNV7f/360-F-956310683-Nj-FOvi-M9-PPRoxku-Sm-HNPxif3k-Qs9am-AH.jpg' },
+                { name: 'موهيتو', price: '8', hasSizes: false, img: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=120' },
+                { name: 'موكا بارد', price: '12/10', hasSizes: true, img: 'https://images.unsplash.com/photo-1530373239216-42518e6b4063?q=80&w=120' },
+                { name: 'أيس أمريكاني', price: '10', hasSizes: false, img: 'https://images.unsplash.com/photo-1551046713-b45fdb3a224a?q=80&w=120' },
+                { name: 'شوكولاته بارد', price: '12/10', hasSizes: true, img: 'https://images.unsplash.com/photo-1541658016709-82535e94bc69?q=80&w=120' },
+                { name: 'ملك شيك كتكات', price: '14/12', hasSizes: true, img: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?q=80&w=120' },
+                { name: 'ملك شيك مارس', price: '14/12', hasSizes: true, img: 'https://images.unsplash.com/photo-1579954115545-a95591f28bfc?q=80&w=120' },
+                { name: 'ملك شيك كندر', price: '14/12', hasSizes: true, img: 'https://images.unsplash.com/photo-1541783245831-57d6fb0926d3?q=80&w=120' },
+                { name: 'ملك شيك نوتيلا', price: '14/12', hasSizes: true, img: 'https://images.unsplash.com/photo-1600718374662-0483d2b9da44?q=80&w=120' },
+                { name: 'ملك شيك لوتس', price: '14/12', hasSizes: true, img: 'https://images.unsplash.com/photo-1585502753372-e42bc5db9447?q=80&w=120' },
+                { name: 'ملك شيك OREO', price: '14/12', hasSizes: true, img: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?q=80&w=120' },
+                { name: 'ملك شيك سنيكرز', price: '14/12', hasSizes: true, img: 'https://images.unsplash.com/photo-1592321675774-3de57f3ee311?q=80&w=120' },
+                { name: 'v60 بارد', price: '10', hasSizes: false, img: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=120' },
+                { name: 'أيس أسبنيس لاتيه', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?q=80&w=120' },
+                { name: 'أيس لاتيه', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?q=80&w=120' },
+                { name: 'أيس كراميل لاتيه', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1461023058043-033481443bd9?q=80&w=120' },
+                { name: 'قهوة اليوم بارد', price: '5', hasSizes: false, img: 'https://images.unsplash.com/photo-1497515114629-f71d768fd07c?q=80&w=120' },
+                { name: 'كركديه بارد', price: '6', hasSizes: false, img: 'https://images.unsplash.com/photo-1595981267035-7b04ca84a82d?q=80&w=120' },
+                { name: 'توي بارد', price: '12/10', hasSizes: true, img: 'https://images.unsplash.com/photo-1530373239216-42518e6b4063?q=80&w=120' }
             ],
             tea: [
-                { name: 'شاي سادة', price: '4/2', hasSizes: true, img: 'https://images.unsplash.com/photo-1597481499750-3e6b22637e12?q=80&w=120' }
+                { name: 'شاي سادة', price: '4/2', hasSizes: true, img: 'https://images.unsplash.com/photo-1597481499750-3e6b22637e12?q=80&w=120' },
+                { name: 'شاي كمون', price: '5/3', hasSizes: true, img: 'https://images.unsplash.com/photo-1627435601361-ec25f5b1d0e5?q=80&w=120' },
+                { name: 'شاي بابونج', price: '5/3', hasSizes: true, img: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?q=80&w=120' },
+                { name: 'شاي بالحليب', price: '5/3', hasSizes: true, img: 'https://images.unsplash.com/photo-1563822249548-9a72b6353cd1?q=80&w=120' },
+                { name: 'شاي أخضر', price: '5/3', hasSizes: true, img: 'https://images.unsplash.com/photo-1523906630133-f6934a1ab26e?q=80&w=120' },
+                { name: 'شاي بالنعناع', price: '4/2', hasSizes: true, img: 'https://images.unsplash.com/photo-1546812808-92e959665765?q=80&w=120' },
+                { name: 'شاي إنجليزي', price: '5/3', hasSizes: true, img: 'https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?q=80&w=120' },
+                { name: 'شاي ينسون', price: '5/3', hasSizes: true, img: 'https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?q=80&w=120' }
             ],
             sweets: [
-                { name: 'بان كيك نوتيلا', price: '8', hasSizes: false, img: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?q=80&w=120' }
+                { name: 'بان كيك نوتيلا', price: '8', hasSizes: false, img: 'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?q=80&w=120' },
+                { name: 'بان كيك مكس', price: '10', hasSizes: false, img: 'https://images.unsplash.com/photo-1528207776546-365bb710ee93?q=80&w=120' },
+                { name: 'كريب نوتيلا', price: '8', hasSizes: false, img: 'https://images.unsplash.com/photo-1519676867240-f03562e64548?q=80&w=120' },
+                { name: 'كريب مكس', price: '10', hasSizes: false, img: 'https://images.unsplash.com/photo-1621303837174-89787a7d4729?q=80&w=120' },
+                { name: 'كيك بارد', price: '12', hasSizes: false, img: 'https://images.unsplash.com/photo-1535141192574-5d4897c13636?q=80&w=120' },
+                { name: 'كوكيز', price: '6', hasSizes: false, img: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?q=80&w=120' },
+                { name: 'حلا تمر', price: '6', hasSizes: false, img: 'https://images.unsplash.com/photo-1541783245831-57d6fb0926d3?q=80&w=120' },
+                { name: 'حلا بندق', price: '8', hasSizes: false, img: 'https://images.unsplash.com/photo-1511018556340-d16986a1c194?q=80&w=120' },
+                { name: 'حلا بستاشيو', price: '8', hasSizes: false, img: 'https://images.unsplash.com/photo-1532371493798-3af5163c6efd?q=80&w=120' },
+                { name: 'كرمل', price: '10', hasSizes: false, img: 'https://images.unsplash.com/photo-1587314168485-3236d6710814?q=80&w=120' },
+                { name: 'بلجيكي', price: '12', hasSizes: false, img: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=120' },
+                { name: 'حلا بارد', price: '12', hasSizes: false, img: 'https://images.unsplash.com/photo-1511018556340-d16986a1c194?q=80&w=120' }
             ]
         };
 
@@ -110,19 +165,45 @@
         function renderMenu(filterText = '') {
             const container = document.getElementById('menuItemsContainer');
             container.innerHTML = '';
-            const details = categoryDetails[currentCategory];
             
-            // تحديث العناصر بناءً على القسم المختار
+            const details = categoryDetails[currentCategory];
             document.getElementById('restaurantLogo').innerText = details.logo;
             document.getElementById('headerSubtitle').innerText = details.subtitle;
             document.getElementById('menuHeader').style.backgroundImage = `url('${details.bg}')`;
-            
-            const items = menu[currentCategory].filter(item => item.name.includes(filterText));
+
+            const items = menu[currentCategory].filter(item => 
+                item.name.includes(filterText)
+            );
+
+            if(items.length === 0) {
+                container.innerHTML = '<div style="text-align:center; padding: 40px; color:#64748b; font-weight:600;">لا توجد أصناف تطابق بحثك حالياً ☕</div>';
+                return;
+            }
+
             items.forEach(item => {
                 const itemDiv = document.createElement('div');
                 itemDiv.className = 'menu-item';
-                let priceHTML = item.hasSizes ? `<div class="price-container"><div class="size-row"><span class="size-label">وسط</span><span class="size-price">${item.price.split('/')[1]} ر.س</span></div><div class="size-row"><span class="size-label">كبير</span><span class="size-price">${item.price.split('/')[0]} ر.س</span></div></div>` : `<span class="single-price">${item.price} <small class="currency">ر.س</small></span>`;
-                itemDiv.innerHTML = `<div class="item-info"><img src="${item.img}" class="item-thumbnail"><h3 class="item-name">${item.name}</h3></div>${priceHTML}`;
+                
+                let priceHTML = '';
+                if (item.hasSizes) {
+                    const prices = item.price.split('/');
+                    priceHTML = `
+                        <div class="price-container">
+                            <div class="size-row"><span class="size-label">وسط</span><span class="size-price">${prices[1]} ر.س</span></div>
+                            <div class="size-row"><span class="size-label">كبير</span><span class="size-price">${prices[0]} ر.س</span></div>
+                        </div>
+                    `;
+                } else {
+                    priceHTML = `<span class="single-price">${item.price} <small class="currency">ر.س</small></span>`;
+                }
+
+                itemDiv.innerHTML = `
+                    <div class="item-info">
+                        <img src="${item.img}" alt="${item.name}" class="item-thumbnail" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=120'">
+                        <h3 class="item-name">${item.name}</h3>
+                    </div>
+                    ${priceHTML}
+                `;
                 container.appendChild(itemDiv);
             });
         }
@@ -131,7 +212,17 @@
             currentCategory = category;
             document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
             element.classList.add('active');
+            document.getElementById('searchInput').value = '';
             renderMenu();
+            
+            const logoEl = document.getElementById('restaurantLogo');
+            logoEl.style.transform = 'scale(1.18) rotate(6deg)';
+            setTimeout(() => { logoEl.style.transform = 'scale(1) rotate(0deg)'; }, 250);
+        }
+
+        function searchMenu() {
+            const text = document.getElementById('searchInput').value.trim();
+            renderMenu(text);
         }
 
         renderMenu();
