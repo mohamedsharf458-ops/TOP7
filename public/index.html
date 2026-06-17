@@ -102,67 +102,82 @@
     </div>
 
     <script>
-        const categoryDetails = {
-            hot: { logo: '☕', subtitle: 'أجود محاصيل القهوة والمشروبات الساخنة', bg: 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1000' },
-            cold: { logo: '🧊', subtitle: 'مشروبات باردة ومنعشة تروي عطشك' }, 
-            tea: { logo: '🍵', subtitle: 'تشكيلة مميزة من الشاي والأعشاب الدافئة', bg: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?q=80&w=1000' },
-            sweets: { logo: '🍰', subtitle: 'حلويات طازجة ولذيذة تكمل روقانك', bg: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=1000' }
-        };
-
+       const categoryDetails = {
+    hot: { 
+        logo: '☕', 
+        subtitle: 'أجود محاصيل القهوة والمشروبات الساخنة', 
+        bg: 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1000' 
+    },
+    cold: { 
+        logo: '🧊', 
+        subtitle: 'مشروبات باردة ومنعشة تروي عطشك', 
+        bg: 'https://i.ibb.co/fY5Z2NQb/360-F-956310683-Nj-FOvi-M9-PPRoxku-Sm-HNPxif3k-Qs9am-AH.jpg' 
+    },
+    tea: { 
+        logo: '🍵', 
+        subtitle: 'تشكيلة مميزة من الشاي والأعشاب الدافئة', 
+        bg: 'https://i.ibb.co/1JZX0PXs/steaming-cup-chai-tea-with-star-anise-cinnamon-sticks-cloves-black-surface-9975-124486.avif' 
+    },
+    sweets: { 
+        logo: '🍰', 
+        subtitle: 'حلويات طازجة ولذيذة تكمل روقانك', 
+        bg: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=1000' 
+    }
+};
         const menu = {
             hot: [
                 { name: 'تركية', price: '8/5', hasSizes: true, img: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=120' },
                 { name: 'كابتشينو', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?q=80&w=120' },
                 { name: 'هوت شوكليت', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?q=80&w=120' },
-                { name: 'حليب زنجبيل', price: '5/3', hasSizes: true, img: 'https://images.unsplash.com/photo-1621263764928-df1444c5e859?q=80&w=120' },
+                { name: 'حليب زنجبيل', price: '5/3', hasSizes: true, img: 'https://i.ibb.co/gFv1WrQx/2024-12-24-19-40-33-338.webp' },
                 { name: 'كورتادو', price: '7', hasSizes: false, img: 'https://images.unsplash.com/photo-1534778101976-62847782c213?q=80&w=120' },
                 { name: 'فلات وايت', price: '7', hasSizes: false, img: 'https://images.unsplash.com/photo-1577968897966-3d4325b36b61?q=80&w=120' },
-                { name: 'سحلب', price: '8', hasSizes: false, img: 'https://images.unsplash.com/photo-1542729779-11d8fe8e25f6?q=80&w=120' },
-                { name: 'شاي كرك', price: '7/5', hasSizes: true, img: 'https://images.unsplash.com/photo-1563822249548-9a72b6353cd1?q=80&w=120' },
-                { name: 'نسكافيه', price: '6/4', hasSizes: true, img: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?q=80&w=120' },
-                { name: 'ميكاتو', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1594911774802-8822a707999d?q=80&w=120' },
+                { name: 'سحلب', price: '8', hasSizes: false, img: 'https://i.ibb.co/nNFCLSbt/images.jpg' },
+                { name: 'شاي كرك', price: '7/5', hasSizes: true, img: 'https://i.ibb.co/mVK1sKP0/u-HUy-Ks0-GH6-Yf-Q6d6-Atci-EPa6z-Db-DV6-WYIm9-Jy5t5.webp' },
+                { name: 'نسكافيه', price: '6/4', hasSizes: true, img: 'https://i.ibb.co/JWWBLXfK/images-1.jpg' },
+                { name: 'ميكاتو', price: '10/8', hasSizes: true, img: 'https://i.ibb.co/Z1zmMmGC/images-2.jpg' },
                 { name: 'أسبانيش حار', price: '11/9', hasSizes: true, img: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=120' },
-                { name: 'كرمل كابتشينو', price: '11/9', hasSizes: true, img: 'https://images.unsplash.com/photo-1517256064527-09c53b2d0c6b?q=80&w=120' },
+                { name: 'كرمل كابتشينو', price: '11/9', hasSizes: true, img: 'https://i.ibb.co/x04RwvH/images-3.jpg' },
                 { name: 'ماتشا', price: '12', hasSizes: false, img: 'https://images.unsplash.com/photo-1536256263959-770b48d82b0a?q=80&w=120' },
-                { name: 'توي حار', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1606791405792-1004f1718d0c?q=80&w=120' },
-                { name: 'موكا حار', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1553909489-cd47e0907980?q=80&w=120' },
+                { name: 'توفي حار', price: '10/8', hasSizes: true, img: 'https://i.ibb.co/15LRVt2/1bbb3ab85c0154dc693321da78c6bf87.webp' },
+                { name: 'موكا حار', price: '10/8', hasSizes: true, img: 'https://i.ibb.co/ycv20v5q/images-4.jpg' },
                 { name: 'لاتيه', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=120' },
-                { name: 'إسبريسو', price: '8/5', hasSizes: true, img: 'https://images.unsplash.com/photo-1510591509382-7434f3133a15?q=80&w=120' },
-                { name: 'قهوة إيطالي', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1552332386-f8dd00dc2f85?q=80&w=120' },
-                { name: 'توي', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1606791405792-1004f1718d0c?q=80&w=120' },
-                { name: 'قهوة فرنسي', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=120' },
-                { name: 'قهوة اليوم حار', price: '5', hasSizes: false, img: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=120' },
+                { name: 'إسبريسو', price: '8/5', hasSizes: true, img: 'https://i.ibb.co/XrkQ9rX8/b5a54e15-3b84-4506-844a-2bc4db8e4914-746-09375x1000-p-OK1a-Dp-XNXDe9-Ta-ZVo-ZM9voqv1s-J30p1s-QGUhl-CV.jpg' },
+                { name: 'قهوة إيطالي', price: '10/8', hasSizes: true, img: 'https://i.ibb.co/GQsZvMj4/images-5.jpg' },
+                { name: 'توفي', price: '10/8', hasSizes: true, img: 'https://i.ibb.co/211zGFRf/images-6.jpg' },
+                { name: 'قهوة فرنسي', price: '10/8', hasSizes: true, img: 'https://i.ibb.co/wZYj6fdP/images-7.jpg' },
+                { name: 'قهوة اليوم حار', price: '5', hasSizes: false, img: 'https://i.ibb.co/WNNLWsbj/68a477a697f93f90afe5e53e.webp' },
                 { name: 'قهوة أمريكية', price: '8', hasSizes: false, img: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=120' },
                 { name: 'v60 حار', price: '8', hasSizes: false, img: 'https://images.unsplash.com/photo-1545665225-b23b99e4d45e?q=80&w=120' }
             ],
             cold: [
-                { name: 'كودرد', price: '11', hasSizes: false, img: 'https://i.ibb.co/4Zk4YmNv/images.jpg' },
+                { name: 'كود رد', price: '11', hasSizes: false, img: 'https://i.ibb.co/4Zk4YmNv/images.jpg' },
                 { name: 'موهيتو', price: '8', hasSizes: false, img: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=120' },
                 { name: 'موكا بارد', price: '12/10', hasSizes: true, img: 'https://images.unsplash.com/photo-1530373239216-42518e6b4063?q=80&w=120' },
-                { name: 'أيس أمريكاني', price: '10', hasSizes: false, img: 'https://images.unsplash.com/photo-1551046713-b45fdb3a224a?q=80&w=120' },
+                { name: 'ايس امريكانو', price: '10', hasSizes: false, img: 'https://i.ibb.co/yFHttCdL/images-8.jpg' },
                 { name: 'شوكولاته بارد', price: '12/10', hasSizes: true, img: 'https://images.unsplash.com/photo-1541658016709-82535e94bc69?q=80&w=120' },
-                { name: 'ملك شيك كتكات', price: '14/12', hasSizes: true, img: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?q=80&w=120' },
-                { name: 'ملك شيك مارس', price: '14/12', hasSizes: true, img: 'https://images.unsplash.com/photo-1579954115545-a95591f28bfc?q=80&w=120' },
-                { name: 'ملك شيك كندر', price: '14/12', hasSizes: true, img: 'https://images.unsplash.com/photo-1541783245831-57d6fb0926d3?q=80&w=120' },
-                { name: 'ملك شيك نوتيلا', price: '14/12', hasSizes: true, img: 'https://images.unsplash.com/photo-1600718374662-0483d2b9da44?q=80&w=120' },
-                { name: 'ملك شيك لوتس', price: '14/12', hasSizes: true, img: 'https://images.unsplash.com/photo-1585502753372-e42bc5db9447?q=80&w=120' },
+                { name: 'ملك شيك كت كات', price: '14/12', hasSizes: true, img: 'https://i.ibb.co/jv9b8bcm/image.webp' },
+                { name: 'ملك شيك مارس', price: '14/12', hasSizes: true, img: 'https://i.ibb.co/xKKhDbcm/hsimg-2021413.webp' },
+                { name: 'ملك شيك كندر', price: '14/12', hasSizes: true, img: 'https://i.ibb.co/NdWBM7gd/images-9.jpg' },
+                { name: 'ملك شيك نوتيلا', price: '14/12', hasSizes: true, img: 'https://i.ibb.co/s91Y54MP/Whats-App-Image-2026-06-16-at-20-25-17.jpg' },
+                { name: 'ملك شيك لوتس', price: '14/12', hasSizes: true, img: 'https://i.ibb.co/sp3yP4wN/Whats-App-Image-2026-06-16-at-20-25-16.jpg' },
                 { name: 'ملك شيك OREO', price: '14/12', hasSizes: true, img: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?q=80&w=120' },
-                { name: 'ملك شيك سنيكرز', price: '14/12', hasSizes: true, img: 'https://images.unsplash.com/photo-1592321675774-3de57f3ee311?q=80&w=120' },
-                { name: 'v60 بارد', price: '10', hasSizes: false, img: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=120' },
-                { name: 'أيس أسبنيس لاتيه', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?q=80&w=120' },
+                { name: 'ملك شيك سنيكرز', price: '14/12', hasSizes: true, img: 'https://i.ibb.co/KpMPm1mS/Whats-App-Image-2026-06-16-at-20-25-17-1.jpg' },
+                { name: 'v60 بارد', price: '10', hasSizes: false, img: 'https://i.ibb.co/xWrtnWg/images-10.jpg' },
+                { name: 'أيس أسبنيس لاتيه', price: '10/8', hasSizes: true, img: 'https://i.ibb.co/3YskKq9Z/images-11.jpg' },
                 { name: 'أيس لاتيه', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?q=80&w=120' },
-                { name: 'أيس كراميل لاتيه', price: '10/8', hasSizes: true, img: 'https://images.unsplash.com/photo-1461023058043-033481443bd9?q=80&w=120' },
-                { name: 'قهوة اليوم بارد', price: '5', hasSizes: false, img: 'https://images.unsplash.com/photo-1497515114629-f71d768fd07c?q=80&w=120' },
+                { name: 'أيس كراميل لاتيه', price: '10/8', hasSizes: true, img: 'https://i.ibb.co/M5QjfZpx/images-12.jpg' },
+                { name: 'قهوة اليوم بارد', price: '5', hasSizes: false, img: 'https://i.ibb.co/TD7577n7/odoo-template-292.webp' },
                 { name: 'كركديه بارد', price: '6', hasSizes: false, img: 'https://images.unsplash.com/photo-1595981267035-7b04ca84a82d?q=80&w=120' },
-                { name: 'توي بارد', price: '12/10', hasSizes: true, img: 'https://images.unsplash.com/photo-1530373239216-42518e6b4063?q=80&w=120' }
+                { name: 'توفي بارد', price: '12/10', hasSizes: true, img: 'https://i.ibb.co/j94QwnVL/images-13.jpg' }
             ],
             tea: [
-                { name: 'شاي سادة', price: '4/2', hasSizes: true, img: 'https://images.unsplash.com/photo-1597481499750-3e6b22637e12?q=80&w=120' },
-                { name: 'شاي كمون', price: '5/3', hasSizes: true, img: 'https://images.unsplash.com/photo-1627435601361-ec25f5b1d0e5?q=80&w=120' },
+                { name: 'شاي سادة', price: '4/2', hasSizes: true, img: 'https://i.ibb.co/S7c6mgFZ/23.webp' },
+                { name: 'شاي كمون', price: '5/3', hasSizes: true, img: 'https://i.ibb.co/5gdzDZ9J/images-14.jpg' },
                 { name: 'شاي بابونج', price: '5/3', hasSizes: true, img: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?q=80&w=120' },
-                { name: 'شاي بالحليب', price: '5/3', hasSizes: true, img: 'https://images.unsplash.com/photo-1563822249548-9a72b6353cd1?q=80&w=120' },
-                { name: 'شاي أخضر', price: '5/3', hasSizes: true, img: 'https://images.unsplash.com/photo-1523906630133-f6934a1ab26e?q=80&w=120' },
-                { name: 'شاي بالنعناع', price: '4/2', hasSizes: true, img: 'https://images.unsplash.com/photo-1546812808-92e959665765?q=80&w=120' },
+                { name: 'شاي بالحليب', price: '5/3', hasSizes: true, img: 'https://i.ibb.co/1JzRyddJ/images-15.jpg' },
+                { name: 'شاي أخضر', price: '5/3', hasSizes: true, img: 'https://i.ibb.co/LXC0T0fq/images-16.jpg' },
+                { name: 'شاي بالنعناع', price: '4/2', hasSizes: true, img: 'https://i.ibb.co/9PRYXLG/2024-5-21-20-23-59-736.jpg' },
                 { name: 'شاي إنجليزي', price: '5/3', hasSizes: true, img: 'https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?q=80&w=120' },
                 { name: 'شاي ينسون', price: '5/3', hasSizes: true, img: 'https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?q=80&w=120' }
             ],
